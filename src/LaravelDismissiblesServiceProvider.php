@@ -11,13 +11,10 @@ class LaravelDismissiblesServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         if (App::environment() === 'testing') {
-            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
             $this->loadMigrationsFrom(__DIR__ . '/../tests/database/migrations');
         }
-
-        $this->publishesMigrations([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
-        ]);
     }
 }
