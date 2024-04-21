@@ -9,11 +9,13 @@
     },
     "autoload": {
         "psr-4": {
-            "ThijsSchalk\\LaravelDismissibles\\": "src/"
+            "ThijsSchalk\\LaravelDismissibles\\": "src/",
+            "ThijsSchalk\\LaravelDismissibles\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
+            "ThijsSchalk\\LaravelDismissibles\\Tests\\Database\\Factories\\": "tests/database/factories",
             "ThijsSchalk\\LaravelDismissibles\\Tests\\": "tests"
         }
     },

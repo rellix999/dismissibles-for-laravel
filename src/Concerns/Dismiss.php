@@ -13,8 +13,8 @@ use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 class Dismiss
 {
     public function __construct(
-        private readonly Model $dismisser,
-        private readonly Dismissible $dismissible
+        public readonly Model $dismisser,
+        public readonly Dismissible $dismissible
     ) {
     }
 
