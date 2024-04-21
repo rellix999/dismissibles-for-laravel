@@ -12,8 +12,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.1",
-        "illuminate/support": "^11",
-        "illuminate/database": "^11"
+        "laravel/framework": ">=7.0"
     },
     "extra": {
         "laravel": {
