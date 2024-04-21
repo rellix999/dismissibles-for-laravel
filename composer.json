@@ -1,6 +1,7 @@
 {
     "name": "thijsschalk/laravel-dismissible",
     "description": "A Laravel package for easily handling recurring, dismissible objects like popups/notifications.",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "autoload": {
