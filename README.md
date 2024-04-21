@@ -17,7 +17,7 @@ composer require thijsschalk/laravel-dismissibles
  
 2. Publish the database migrations
 ```shell
-php artisan vendor:publish --provider="ThijsSchalk\LaravelDismissibles\LaravelDismissibleServiceProvider"
+php artisan vendor:publish --provider="ThijsSchalk\LaravelDismissibles\LaravelDismissiblesServiceProvider"
 ```
 
 3. Run the migrations to create the database tables
