@@ -58,28 +58,28 @@ class Dismiss
         $this->dismiss($until, $extraData);
     }
 
-    public function forThisWeek(?array $extraData = null): void
+    public function forThisCalendarWeek(?array $extraData = null): void
     {
         $until = Carbon::now()->endOfWeek();
 
         $this->dismiss($until, $extraData);
     }
 
-    public function forThisMonth(?array $extraData = null): void
+    public function forThisCalendarMonth(?array $extraData = null): void
     {
         $until = Carbon::now()->endOfMonth();
 
         $this->dismiss($until, $extraData);
     }
 
-    public function forThisQuarter(?array $extraData = null): void
+    public function forThisCalendarQuarter(?array $extraData = null): void
     {
         $until = Carbon::now()->endOfQuarter();
 
         $this->dismiss($until, $extraData);
     }
 
-    public function forThisYear(?array $extraData = null): void
+    public function forThisCalendarYear(?array $extraData = null): void
     {
         $until = Carbon::now()->endOfYear();
 

@@ -57,10 +57,10 @@ $user->dismiss($dismissible)->forDays($days);
 $user->dismiss($dismissible)->forWeeks($weeks);
 $user->dismiss($dismissible)->forMonths($months);
 $user->dismiss($dismissible)->forYears($years);
-$user->dismiss($dismissible)->forThisWeek();
-$user->dismiss($dismissible)->forThisMonth();
-$user->dismiss($dismissible)->forThisQuarter();
-$user->dismiss($dismissible)->forThisYear();
-$user->dismiss($dismissible)->until($dateTime);
+$user->dismiss($dismissible)->forThisCalendarWeek();
+$user->dismiss($dismissible)->forThisCalendarMonth();
+$user->dismiss($dismissible)->forThisCalendarQuarter();
+$user->dismiss($dismissible)->forThisCalendarYear();
 $user->dismiss($dismissible)->forever();
+$user->dismiss($dismissible)->until($dateTime);
 ```
