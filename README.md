@@ -30,35 +30,37 @@ These examples are with Inertia, but you can basically use it with any frontend.
 
 Add the trait to any model (usually `User`) which should be able to dismiss objects:
 ```php
-use CanDismiss;
+use HasDismissibles;
 ```
 
 Create a dismissible object:
 ```php
 Dismissible::create([
-    ...TODO
+    'name' => 'Popup 1',
+    'active_from'  => Carbon::yesterday(),
+    'active_until' => Carbon::now()->addWeek(),
 ]);
 ```
 
-Now you can do stuff like:
+Check whether it has been dismissed:
 ```php
-public function index(): Response
-{
-    $popup = Dismissible::firstWhere('name', 'my-popup');
-
-    return Inertia::render('home/Index', [
-        'popupIsVisible' => $user->shouldSeeDismissible($popup),
-    ]);
-}
-
-public function dismiss(Request $request, Dismissible $dismissible): RedirectResponse
-{
-    $user = $request->user();
+$popup = Dismissible::firstWhere('name', 'my-popup');
     
-    $user->dismiss($dismissible);
-    
-    return redirect(route('home.index'));
-}
-
+$showPopup = !$user->hasDismissed($popup);
 ```
 
+Dismissing:
+```php
+$user->dismiss($dismissible)->forToday();
+$user->dismiss($dismissible)->forHours($hours);
+$user->dismiss($dismissible)->forDays($days);
+$user->dismiss($dismissible)->forWeeks($weeks);
+$user->dismiss($dismissible)->forMonths($months);
+$user->dismiss($dismissible)->forYears($years);
+$user->dismiss($dismissible)->forThisWeek();
+$user->dismiss($dismissible)->forThisMonth();
+$user->dismiss($dismissible)->forThisQuarter();
+$user->dismiss($dismissible)->forThisYear();
+$user->dismiss($dismissible)->until($dateTime);
+$user->dismiss($dismissible)->forever();
+```
