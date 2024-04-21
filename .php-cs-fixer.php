@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return (new PhpCsFixer\Config())
     ->setRiskyAllowed(true)
     ->setRules([
@@ -14,6 +16,7 @@ return (new PhpCsFixer\Config())
                 '=>' => 'align_single_space_minimal',
             ],
         ],
+        'declare_strict_types'               => true,
         'blank_line_before_statement'        => ['statements' => ['return']],
         'cast_spaces'                        => true,
         'concat_space'                       => ['spacing' => 'one'],
