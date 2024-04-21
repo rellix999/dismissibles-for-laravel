@@ -26,9 +26,7 @@ php artisan migrate
 ```
 
 ## How to use
-These examples are with Inertia, but you can basically use it with any frontend.
-
-Add the trait to any model (usually `User`) which should be able to dismiss objects:
+Add the trait to any model which should be able to dismiss objects (like `App\Models\User`):
 ```php
 use HasDismissibles;
 ```
@@ -36,15 +34,15 @@ use HasDismissibles;
 Create a dismissible object:
 ```php
 Dismissible::create([
-    'name' => 'Popup 1',
-    'active_from'  => Carbon::yesterday(),
-    'active_until' => Carbon::now()->addWeek(),
+    'name'          => 'Popup 1', // Prevent magic variables, create a config and do something like: config('dismissibles.popup_one.name');
+    'active_from'   => Carbon::yesterday(),
+    'active_until'  => Carbon::now()->addWeek(),
 ]);
 ```
 
 Check whether it has been dismissed:
 ```php
-$popup = Dismissible::firstWhere('name', 'my-popup');
+$popup = Dismissible::firstWhere('name', 'Popup 1');
     
 $showPopup = !$user->hasDismissed($popup);
 ```
