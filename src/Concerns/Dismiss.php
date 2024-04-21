@@ -1,12 +1,14 @@
 <?php
 
-namespace ThijsSchalk\LaravelDismissible\Concerns;
+declare(strict_types=1);
+
+namespace ThijsSchalk\LaravelDismissibles\Concerns;
 
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use ThijsSchalk\LaravelDismissible\Models\Dismissal;
-use ThijsSchalk\LaravelDismissible\Models\Dismissible;
+use ThijsSchalk\LaravelDismissibles\Models\Dismissal;
+use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 
 class Dismiss
 {

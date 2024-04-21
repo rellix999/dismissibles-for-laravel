@@ -1,4 +1,4 @@
-# Laravel Dismissible
+# Laravel Dismissibles
 
 A Laravel package for easily handling recurring, dismissible objects like popups/notifications on the server side.
 
@@ -12,12 +12,12 @@ Because it is serverside we can easily get statistics like who dismissed what, w
 ## Installation
 1. Require the package in your Laravel application
 ```shell
-composer require thijsschalk/laravel-dismissible
+composer require thijsschalk/laravel-dismissibles
 ```
  
 2. Publish the database migrations
 ```shell
-php artisan vendor:publish --provider="ThijsSchalk\LaravelDismissible\LaravelDismissibleServiceProvider"
+php artisan vendor:publish --provider="ThijsSchalk\LaravelDismissibles\LaravelDismissibleServiceProvider"
 ```
 
 3. Run the migrations to create the database tables

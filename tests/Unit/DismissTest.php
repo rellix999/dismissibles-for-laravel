@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissible\Tests\Unit;
+namespace ThijsSchalk\LaravelDismissibles\Tests\Unit;
 
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\Test;
-use ThijsSchalk\LaravelDismissible\Models\Dismissible;
-use ThijsSchalk\LaravelDismissible\Tests\BaseTestCase;
-use ThijsSchalk\LaravelDismissible\Tests\Models\Dismisser;
+use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
+use ThijsSchalk\LaravelDismissibles\Tests\BaseTestCase;
+use ThijsSchalk\LaravelDismissibles\Tests\Models\Dismisser;
 
 class DismissTest extends BaseTestCase
 {

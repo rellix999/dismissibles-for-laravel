@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissible\Tests;
+namespace ThijsSchalk\LaravelDismissibles\Tests;
 
 use Orchestra\Testbench\TestCase;
-use ThijsSchalk\LaravelDismissible\LaravelDismissibleServiceProvider;
+use ThijsSchalk\LaravelDismissibles\LaravelDismissiblesServiceProvider;
 
 abstract class BaseTestCase extends TestCase
 {
@@ -18,7 +18,7 @@ abstract class BaseTestCase extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return [LaravelDismissibleServiceProvider::class];
+        return [LaravelDismissiblesServiceProvider::class];
     }
 
     protected function getEnvironmentSetUp($app)

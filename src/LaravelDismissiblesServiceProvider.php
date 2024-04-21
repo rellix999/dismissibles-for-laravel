@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissible;
+namespace ThijsSchalk\LaravelDismissibles;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelDismissibleServiceProvider extends ServiceProvider
+class LaravelDismissiblesServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {

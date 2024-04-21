@@ -1,6 +1,8 @@
 <?php
 
-namespace ThijsSchalk\LaravelDismissible\Models;
+declare(strict_types=1);
+
+namespace ThijsSchalk\LaravelDismissibles\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

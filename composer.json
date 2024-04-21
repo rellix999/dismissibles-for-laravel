@@ -1,5 +1,5 @@
 {
-    "name": "thijsschalk/laravel-dismissible",
+    "name": "thijsschalk/laravel-dismissibles",
     "description": "A Laravel package for easily handling recurring, dismissible objects like popups/notifications.",
     "version": "1.0.0",
     "type": "library",
@@ -9,12 +9,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ThijsSchalk\\LaravelDismissible\\": "src/"
+            "ThijsSchalk\\LaravelDismissibles\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ThijsSchalk\\LaravelDismissible\\Tests\\": "tests"
+            "ThijsSchalk\\LaravelDismissibles\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",
@@ -26,7 +26,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "ThijsSchalk\\LaravelDismissible\\LaravelDismissibleServiceProvider"
+                "ThijsSchalk\\LaravelDismissibles\\LaravelDismissiblesServiceProvider"
             ]
         }
     },

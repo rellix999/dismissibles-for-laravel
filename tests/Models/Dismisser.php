@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissible\Tests\Models;
+namespace ThijsSchalk\LaravelDismissibles\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use ThijsSchalk\LaravelDismissible\Traits\HasDismissibles;
+use ThijsSchalk\LaravelDismissibles\Traits\HasDismissibles;
 
 class Dismisser extends Model
 {

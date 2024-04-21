@@ -1,14 +1,16 @@
 <?php
 
-namespace ThijsSchalk\LaravelDismissible\Traits;
+declare(strict_types=1);
+
+namespace ThijsSchalk\LaravelDismissibles\Traits;
 
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
-use ThijsSchalk\LaravelDismissible\Concerns\Dismiss;
-use ThijsSchalk\LaravelDismissible\Models\Dismissal;
-use ThijsSchalk\LaravelDismissible\Models\Dismissible;
+use ThijsSchalk\LaravelDismissibles\Concerns\Dismiss;
+use ThijsSchalk\LaravelDismissibles\Models\Dismissal;
+use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 
 trait HasDismissibles
 {
