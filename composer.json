@@ -4,9 +4,17 @@
     "version": "1.0.0",
     "type": "library",
     "license": "MIT",
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    },
     "autoload": {
         "psr-4": {
             "ThijsSchalk\\LaravelDismissible\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ThijsSchalk\\LaravelDismissible\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",
@@ -23,6 +31,7 @@
         }
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.54"
+        "friendsofphp/php-cs-fixer": "^3.54",
+        "orchestra/testbench": "^9.0"
     }
 }
