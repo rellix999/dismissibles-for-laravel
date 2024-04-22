@@ -12,52 +12,70 @@ use ThijsSchalk\LaravelDismissibles\Tests\BaseTestCase;
 
 class DismissalsTest extends BaseTestCase
 {
-    private readonly Dismissible $dismissible;
-    private readonly Dismisser $dismisser;
-
-    public function setUp(): void
+    public function it_returns_all_dismissals_by_a_dismisser_of_the_same_dismissibles()
     {
-        parent::setUp();
+        /** @var Dismisser $dismisser */
+        $dismisser = Dismisser::factory()->create();
 
-        $this->dismissible = Dismissible::factory()->create();
-        $this->dismisser = Dismisser::factory()->create();
-    }
+        $dismissible = Dismissible::factory()->create();
 
-    #[Test]
-    public function it_returns_all_dismissals_of_dismisser()
-    {
         Dismissal::factory(5)
-            ->for($this->dismisser)
-            ->for($this->dismissible)
+            ->for($dismisser)
+            ->for($dismissible)
             ->create();
 
-        $actualValue = $this->dismisser->dismissals;
+        $actualValue = $dismisser->dismissals;
 
         $this->assertCount(5, $actualValue);
 
         /** @var Dismissal $dismissal */
         foreach ($actualValue as $dismissal) {
-            $this->assertTrue($dismissal->dismisser->is($this->dismisser));
-            $this->assertTrue($dismissal->dismissible->is($this->dismissible));
+            $this->assertTrue($dismissal->dismisser->is($dismisser));
+            $this->assertTrue($dismissal->dismissible->is($dismissible));
         }
     }
 
     #[Test]
-    public function it_does_not_return_dismissals_of_other_dismissers()
+    public function it_returns_all_dismissals_by_a_dismisser_of_different_dismissibles()
     {
-        /** @var Dismissal $expectedDismissal */
+        /** @var Dismisser $dismisser */
+        $dismisser = Dismisser::factory()->create();
+
+        Dismissal::factory(5)
+            ->for($dismisser)
+            ->create();
+
+        $actualValue = $dismisser->dismissals;
+
+        $this->assertCount(5, $actualValue);
+
+        /** @var Dismissal $dismissal */
+        foreach ($actualValue as $dismissal) {
+            $this->assertTrue($dismissal->dismisser->is($dismisser));
+        }
+    }
+
+    #[Test]
+    public function it_only_returns_dismissals_of_the_dismisser()
+    {
+        /** @var Dismisser $dismisser */
+        $dismisser = Dismisser::factory()->create();
+
+        /** @var Dismissible $dismissible */
+        $dismissible = Dismissible::factory()->create();
+
         $expectedDismissal = Dismissal::factory()
-            ->for($this->dismisser)
-            ->for($this->dismissible)
+            ->for($dismisser)
+            ->for($dismissible)
             ->create();
 
-        /** @var Dismissal $notExpectedDismissal */
-        $notExpectedDismissal = Dismissal::factory()
-            ->for(Dismisser::factory()->create())
-            ->for($this->dismissible)
+        Dismissal::factory()
+            ->for($dismissible)
             ->create();
 
-        $actualValue = $this->dismisser->dismissals;
+        Dismissal::factory()->create();
+
+        $actualValue = $dismisser->dismissals;
 
         $this->assertCount(1, $actualValue);
 
@@ -65,6 +83,5 @@ class DismissalsTest extends BaseTestCase
         $actualDismissal = $actualValue->first();
 
         $this->assertTrue($actualDismissal->is($expectedDismissal));
-        $this->assertFalse($actualDismissal->is($notExpectedDismissal));
     }
 }
