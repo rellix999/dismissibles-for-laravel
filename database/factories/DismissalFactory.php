@@ -13,11 +13,25 @@ class DismissalFactory extends Factory
 
     public function definition(): array
     {
-        // TODO: Check active date of dismissible
-
         return [
-            'dismissed_until' => $this->faker->optional() ? $this->faker->dateTimeBetween('-3 months', '+3 months') : null,
+            'dismissed_until' => null,
             'extra_data'      => $this->faker->optional() ? ['some_extra_data' => $this->faker->randomNumber()] : null,
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterMaking(function (Dismissal $dismissal) {
+            if ($this->faker->optional()) {
+                $this->setDismissedUntilByDismissible($dismissal);
+            }
+        });
+    }
+
+    private function setDismissedUntilByDismissible(Dismissal $dismissal): void
+    {
+        $dismissible = $dismissal->dismissible;
+
+        $dismissal->dismissed_until = $this->faker->dateTimeBetween($dismissible->active_from, $dismissible->active_until);
     }
 }
