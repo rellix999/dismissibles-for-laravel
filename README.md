@@ -47,7 +47,7 @@ class SomeController {
         ...
     
         // Only existing and active(!) Dismissibles are returned
-        // It's recommended to fetch these values through something like: config('dismissibles.new_years_popup.*) 
+        // It's recommended to fetch these attribute values through something like: config('dismissibles.new_years_popup.*) 
         $dismissible = Dismissible::firstOrCreate(
             ['name' => 'Happy New Year popup'], 
             [
