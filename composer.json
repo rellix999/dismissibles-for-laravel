@@ -15,7 +15,6 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ThijsSchalk\\LaravelDismissibles\\Tests\\Database\\Factories\\": "tests/database/factories",
             "ThijsSchalk\\LaravelDismissibles\\Tests\\": "tests"
         }
     },

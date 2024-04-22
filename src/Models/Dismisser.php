@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissibles\Tests\Models;
+namespace ThijsSchalk\LaravelDismissibles\Models;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use ThijsSchalk\LaravelDismissibles\Tests\Database\Factories\DismisserFactory;
+use ThijsSchalk\LaravelDismissibles\Database\Factories\DismisserFactory;
 use ThijsSchalk\LaravelDismissibles\Traits\HasDismissibles;
 
 class Dismisser extends Model

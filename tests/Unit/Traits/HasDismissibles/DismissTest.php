@@ -6,9 +6,9 @@ namespace ThijsSchalk\LaravelDismissibles\Tests\Unit\Traits\HasDismissibles;
 
 use PHPUnit\Framework\Attributes\Test;
 use ThijsSchalk\LaravelDismissibles\Concerns\Dismiss;
+use ThijsSchalk\LaravelDismissibles\Models\Dismisser;
 use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 use ThijsSchalk\LaravelDismissibles\Tests\BaseTestCase;
-use ThijsSchalk\LaravelDismissibles\Tests\Models\Dismisser;
 
 class DismissTest extends BaseTestCase
 {
