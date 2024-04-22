@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace ThijsSchalk\LaravelDismissibles\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use ThijsSchalk\LaravelDismissibles\Database\Factories\DismissibleFactory;
 
@@ -40,6 +42,19 @@ class Dismissible extends Model
                 $model->uuid = Str::uuid()->toString();
             }
         });
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $now = Carbon::now();
+
+        $query
+            ->where('active_from', '<', $now)
+            ->where(function (Builder $query) use ($now) {
+                $query
+                    ->where('active_until', '>', $now)
+                    ->orWhereNull('active_until');
+            });
     }
 
     public function dismissals(): HasMany
