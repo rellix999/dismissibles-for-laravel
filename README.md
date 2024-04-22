@@ -34,8 +34,22 @@ class User
 
 ```
 
-### 2. Create dismissible/check has dismissed
-Determining whether to show the dismissible do something like this in your controller:
+### 2. Create a dismissible
+It's recommended to do this through a database migration, but you can also do it inline using `firstOrCreate` instead of `firstWhere`.
+```php
+use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
+use Illuminate\Support\Facades\Date;
+
+$newYearsPopup = Dismissible::create([
+    'name'          => 'Happy New Year popup', 
+    'active_from'   => Date::createFromFormat('d-m-Y', '01-01-2030'),
+    'active_until'  => Date::createFromFormat('d-m-Y', '06-01-2030'),
+]);
+
+```
+
+
+### 3. Check whether it's dismissed
 ```php
 
 use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
@@ -47,42 +61,38 @@ class SomeController {
         ...
     
         // Only existing and active(!) Dismissibles are returned
-        // It's recommended to fetch these attribute values through something like: config('dismissibles.new_years_popup.*) 
-        $dismissible = Dismissible::firstOrCreate(
-            ['name' => 'Happy New Year popup'], 
-            [
-                'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
-                'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'),
-            ],
-        );
+        // It's recommended to fetch these name through something like: config('dismissibles.new_years_popup.name') 
+        $newYearsPopup = Dismissible::firstWhere(['name' => 'Happy New Year popup']);
         
-        $showPopup = !$user->hasDismissed($popup);
+        $showPopup = !$user->hasDismissed($newYearsPopup);
         
         ...
     }
 }
 ```
 
-### 3. Dismissing
+### 4. Dismiss it
 ```php
 class SomeController {
     public function dismiss()
     {
         ...
         
+        $newYearsPopup = Dismissible::firstWhere(['name' => 'Happy New Year popup']);
+        
         // Any of these:
-        $user->dismiss($dismissible)->forToday();
-        $user->dismiss($dismissible)->forHours($hours);
-        $user->dismiss($dismissible)->forDays($days);
-        $user->dismiss($dismissible)->forWeeks($weeks);
-        $user->dismiss($dismissible)->forMonths($months);
-        $user->dismiss($dismissible)->forYears($years);
-        $user->dismiss($dismissible)->forThisCalendarWeek();
-        $user->dismiss($dismissible)->forThisCalendarMonth();
-        $user->dismiss($dismissible)->forThisCalendarQuarter();
-        $user->dismiss($dismissible)->forThisCalendarYear();
-        $user->dismiss($dismissible)->forever();
-        $user->dismiss($dismissible)->until($dateTime);
+        $user->dismiss($newYearsPopup)->forToday();
+        $user->dismiss($newYearsPopup)->forHours($hours);
+        $user->dismiss($newYearsPopup)->forDays($days);
+        $user->dismiss($newYearsPopup)->forWeeks($weeks);
+        $user->dismiss($newYearsPopup)->forMonths($months);
+        $user->dismiss($newYearsPopup)->forYears($years);
+        $user->dismiss($newYearsPopup)->forThisCalendarWeek();
+        $user->dismiss($newYearsPopup)->forThisCalendarMonth();
+        $user->dismiss($newYearsPopup)->forThisCalendarQuarter();
+        $user->dismiss($newYearsPopup)->forThisCalendarYear();
+        $user->dismiss($newYearsPopup)->forever();
+        $user->dismiss($newYearsPopup)->until($dateTime);
         
         ...
     }
