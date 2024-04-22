@@ -23,37 +23,80 @@ php artisan migrate
 ## How to use
 Add the trait to any model which should be able to dismiss objects (like `App\Models\User`):
 ```php
-use HasDismissibles;
+use ThijsSchalk\LaravelDismissibles\Traits\HasDismissibles;
+
+class User
+{
+    use HasDismissibles;
+    ...
+}
+
 ```
 
-Create a dismissible object:
+Determining whether to show the dismissible do something like this in your controller:
 ```php
-$dismissible = Dismissible::create([
-    'name'          => 'Happy New Year 2030', // Prevent magic variables, create a config and do something like: config('popups.happy_new_year.name');
-    'active_from'   => Date::createFromFormat('d-m-Y', '01-01-2030'),
-    'active_until'  => Date::createFromFormat('d-m-Y', '06-01-2030'),
-);
-```
 
-Check whether it has been dismissed:
-```php
-$popup = Dismissible::firstWhere('name', 'Happy New Year 2030');
+use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
+use Illuminate\Support\Facades\Date;
+...
+
+public function index()
+{
+    ...
+
+    // It returns `null` when the dismissible doesn't exist OR it is not active:
+    $dismissible = Dismissible::firstOrCreate(
+        ['name' => 'Happy New Year popup'],
+        [
+            'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
+            'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'),
+        ],
+    );
     
-$showPopup = !$user->hasDismissed($popup);
+    $showPopup = !$user->hasDismissed($popup);
+    
+    ...
+}
 ```
 
-Dismissing:
+To dismiss it do something like this in your controller:
 ```php
-$user->dismiss($dismissible)->forToday();
-$user->dismiss($dismissible)->forHours($hours);
-$user->dismiss($dismissible)->forDays($days);
-$user->dismiss($dismissible)->forWeeks($weeks);
-$user->dismiss($dismissible)->forMonths($months);
-$user->dismiss($dismissible)->forYears($years);
-$user->dismiss($dismissible)->forThisCalendarWeek();
-$user->dismiss($dismissible)->forThisCalendarMonth();
-$user->dismiss($dismissible)->forThisCalendarQuarter();
-$user->dismiss($dismissible)->forThisCalendarYear();
-$user->dismiss($dismissible)->forever();
-$user->dismiss($dismissible)->until($dateTime);
+public function dismiss()
+{
+    ...
+    
+    // Any of these:
+    $user->dismiss($dismissible)->forToday();
+    $user->dismiss($dismissible)->forHours($hours);
+    $user->dismiss($dismissible)->forDays($days);
+    $user->dismiss($dismissible)->forWeeks($weeks);
+    $user->dismiss($dismissible)->forMonths($months);
+    $user->dismiss($dismissible)->forYears($years);
+    $user->dismiss($dismissible)->forThisCalendarWeek();
+    $user->dismiss($dismissible)->forThisCalendarMonth();
+    $user->dismiss($dismissible)->forThisCalendarQuarter();
+    $user->dismiss($dismissible)->forThisCalendarYear();
+    $user->dismiss($dismissible)->forever();
+    $user->dismiss($dismissible)->until($dateTime);
+    
+    ...
+}
 ```
+
+Need extra data regarding the dismissal? All methods above allow you to pass an array as last parameter which will be written to the `dismissals` table as json.
+
+## Database tables
+The database structure allows you to easily track activity regarding dismissibles.
+
+
+### Dismissibles (popups, notifications, modals)
+| id | uuid                                 | name                 | active_from         | active_until        | created_at          | updated_at          |
+|----|--------------------------------------|----------------------|---------------------|---------------------|---------------------|---------------------|
+| 3  | 0022d55a-03fa-4ff5-a0d0-670a6a8c9d8b | Happy New Year popup | 2030-01-01 00:00:00 | 2030-01-06 23:59:59 | 2029-12-15 17:35:54 | 2029-12-15 17:35:54 |
+
+
+### Dismissals (activity)
+| id | dismissible_id | dismisser_type  | dismisser_id | dismissed_until     | extra_data                   | created_at          | updated_at          |
+|----|----------------|-----------------|--------------|---------------------|------------------------------|---------------------|---------------------|
+| 15 | 3              | App\Models\User | 328          | 2030-01-02 23:59:59 | "{\"route\":\"home.index\"}" | 2030-01-02 17:35:54 | 2030-01-02 17:35:54 |
+
