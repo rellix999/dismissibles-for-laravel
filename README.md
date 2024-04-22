@@ -21,7 +21,8 @@ php artisan migrate
 ```
 
 ## How to use
-Add the trait to any model which should be able to dismiss objects (like `App\Models\User`):
+
+### 1. Add the trait to any model
 ```php
 use ThijsSchalk\LaravelDismissibles\Traits\HasDismissibles;
 
@@ -33,60 +34,65 @@ class User
 
 ```
 
+### 2. Create dismissible/check has dismissed
 Determining whether to show the dismissible do something like this in your controller:
 ```php
 
 use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 use Illuminate\Support\Facades\Date;
-...
 
-public function index()
-{
-    ...
-
-    // It returns `null` when the dismissible doesn't exist OR it is not active:
-    $dismissible = Dismissible::firstOrCreate(
-        ['name' => 'Happy New Year popup'],
-        [
-            'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
-            'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'),
-        ],
-    );
+class SomeController {
+    public function index()
+    {
+        ...
     
-    $showPopup = !$user->hasDismissed($popup);
-    
-    ...
+        // Only existing and active(!) Dismissibles are returned
+        // It's recommended to fetch these values through something like: config('dismissibles.new_years_popup.*) 
+        $dismissible = Dismissible::firstOrCreate(
+            ['name' => 'Happy New Year popup'], 
+            [
+                'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
+                'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'),
+            ],
+        );
+        
+        $showPopup = !$user->hasDismissed($popup);
+        
+        ...
+    }
 }
 ```
 
-To dismiss it do something like this in your controller:
+### 3. Dismissing
 ```php
-public function dismiss()
-{
-    ...
-    
-    // Any of these:
-    $user->dismiss($dismissible)->forToday();
-    $user->dismiss($dismissible)->forHours($hours);
-    $user->dismiss($dismissible)->forDays($days);
-    $user->dismiss($dismissible)->forWeeks($weeks);
-    $user->dismiss($dismissible)->forMonths($months);
-    $user->dismiss($dismissible)->forYears($years);
-    $user->dismiss($dismissible)->forThisCalendarWeek();
-    $user->dismiss($dismissible)->forThisCalendarMonth();
-    $user->dismiss($dismissible)->forThisCalendarQuarter();
-    $user->dismiss($dismissible)->forThisCalendarYear();
-    $user->dismiss($dismissible)->forever();
-    $user->dismiss($dismissible)->until($dateTime);
-    
-    ...
+class SomeController {
+    public function dismiss()
+    {
+        ...
+        
+        // Any of these:
+        $user->dismiss($dismissible)->forToday();
+        $user->dismiss($dismissible)->forHours($hours);
+        $user->dismiss($dismissible)->forDays($days);
+        $user->dismiss($dismissible)->forWeeks($weeks);
+        $user->dismiss($dismissible)->forMonths($months);
+        $user->dismiss($dismissible)->forYears($years);
+        $user->dismiss($dismissible)->forThisCalendarWeek();
+        $user->dismiss($dismissible)->forThisCalendarMonth();
+        $user->dismiss($dismissible)->forThisCalendarQuarter();
+        $user->dismiss($dismissible)->forThisCalendarYear();
+        $user->dismiss($dismissible)->forever();
+        $user->dismiss($dismissible)->until($dateTime);
+        
+        ...
+    }
 }
 ```
 
-Need extra data regarding the dismissal? All methods above allow you to pass an array as last parameter which will be written to the `dismissals` table as json.
+Need extra data regarding the dismissal? All methods above allow you to pass an `$extraData` array as last parameter which will be written to the `dismissals` table as json.
 
 ## Database tables
-The database structure allows you to easily track activity regarding dismissibles.
+The database structure allows you to easily track activity regarding dismissibles. Due to the `extra_data` column it's also very flexible!
 
 
 ### Dismissibles (popups, notifications, modals)
