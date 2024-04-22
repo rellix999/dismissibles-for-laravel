@@ -61,7 +61,7 @@ class SomeController {
         ...
     
         // Only existing and active(!) Dismissibles are returned
-        // It's recommended to fetch these name through something like: config('dismissibles.new_years_popup.name') 
+        // It's recommended to fetch the name through something like: config('dismissibles.new_years_popup.name') 
         $newYearsPopup = Dismissible::firstWhere(['name' => 'Happy New Year popup']);
         
         $showPopup = !$user->hasDismissed($newYearsPopup);
