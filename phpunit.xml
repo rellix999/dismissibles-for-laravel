@@ -6,12 +6,18 @@
         colors="true"
         processIsolation="false"
         stopOnFailure="false"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.1/phpunit.xsd"
+        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.0/phpunit.xsd"
         backupStaticProperties="false"
 >
   <testsuites>
     <testsuite name="Package Test Suite">
-      <directory>./tests/Unit</directory>
+      <directory suffix="Test.php">./tests</directory>
     </testsuite>
   </testsuites>
+
+  <source>
+    <include>
+      <directory>./src</directory>
+    </include>
+  </source>
 </phpunit>
