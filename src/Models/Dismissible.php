@@ -22,8 +22,8 @@ class Dismissible extends Model
     ];
 
     protected $casts = [
-        'active_from'  => 'datetime',
-        'active_until' => 'datetime',
+        'active_from'  => 'immutable_datetime',
+        'active_until' => 'immutable_datetime',
     ];
 
     protected static function newFactory(): Factory
