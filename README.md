@@ -28,16 +28,16 @@ use HasDismissibles;
 
 Create a dismissible object:
 ```php
-Dismissible::create([
-    'name'          => 'Popup 1', // Prevent magic variables, create a config and do something like: config('dismissibles.popup_one.name');
-    'active_from'   => Carbon::yesterday(),
-    'active_until'  => Carbon::now()->addWeek(),
-]);
+$dismissible = Dismissible::create([
+    'name'          => 'Happy New Year 2030', // Prevent magic variables, create a config and do something like: config('popups.happy_new_year.name');
+    'active_from'   => Date::createFromFormat('d-m-Y', '01-01-2030'),
+    'active_until'  => Date::createFromFormat('d-m-Y', '06-01-2030'),
+);
 ```
 
 Check whether it has been dismissed:
 ```php
-$popup = Dismissible::firstWhere('name', 'Popup 1');
+$popup = Dismissible::firstWhere('name', 'Happy New Year 2030');
     
 $showPopup = !$user->hasDismissed($popup);
 ```
