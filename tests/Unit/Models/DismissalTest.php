@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace ThijsSchalk\LaravelDismissibles\Tests\Unit\Models;
 
 use DateTimeInterface;
+use Illuminate\Support\Facades\Date;
 use PHPUnit\Framework\Attributes\Test;
 use ThijsSchalk\LaravelDismissibles\Models\Dismissal;
 use ThijsSchalk\LaravelDismissibles\Tests\BaseTestCase;
@@ -14,7 +15,9 @@ class DismissalTest extends BaseTestCase
     #[Test]
     public function dismissed_until_getter_returns_date_time_object()
     {
-        $dismissal = Dismissal::factory()->create();
+        $dismissal = Dismissal::factory()->create([
+            'dismissed_until' => Date::now(),
+        ]);
 
         $this->assertTrue($dismissal->dismissed_until instanceof DateTimeInterface);
     }

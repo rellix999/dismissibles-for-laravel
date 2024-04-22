@@ -16,31 +16,19 @@ class DismissalFactory extends Factory
     public function definition(): array
     {
         return [
+            'dismisser_id'    => fn () => Dismisser::factory()->create(),
+            'dismisser_type'  => Dismisser::class,
             'dismissible_id'  => fn () => Dismissible::factory()->create(),
-            'dismissed_until' => null,
-            'extra_data'      => $this->faker->optional() ? ['some_extra_data' => $this->faker->randomNumber()] : null,
+            'dismissed_until' => function (array $attributes) {
+                if ($this->faker->optional()) {
+                    return null;
+                }
+
+                $dismissible = Dismissible::find($attributes['dismissible_id']);
+
+                return $this->faker->dateTimeBetween($dismissible->active_from, $dismissible->active_until);
+            },
+            'extra_data' => $this->faker->optional() ? ['some_extra_data' => $this->faker->randomNumber()] : null,
         ];
-    }
-
-    public function configure(): static
-    {
-        return $this->afterMaking(function (Dismissal $dismissal) {
-            if ($this->faker->optional()) {
-                $this->setDismissedUntilByDismissible($dismissal);
-            }
-
-            if (!$dismissal->dismisser) {
-                $dismisser = Dismisser::factory()->create();
-
-                $dismissal->dismisser()->associate($dismisser);
-            }
-        });
-    }
-
-    private function setDismissedUntilByDismissible(Dismissal $dismissal): void
-    {
-        $dismissible = $dismissal->dismissible;
-
-        $dismissal->dismissed_until = $this->faker->dateTimeBetween($dismissible->active_from, $dismissible->active_until);
     }
 }
