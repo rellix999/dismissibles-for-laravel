@@ -32,21 +32,17 @@ class Dismissible extends Model
         return DismissibleFactory::new();
     }
 
-    protected static function boot()
+    public function scopeActive(Builder $query): void
     {
-        parent::boot();
+        $now = Carbon::now();
 
-        static::addGlobalScope('active', function (Builder $query) {
-            $now = Carbon::now();
-
-            $query
-                ->where('active_from', '<', $now)
-                ->where(function (Builder $query) use ($now) {
-                    $query
-                        ->where('active_until', '>', $now)
-                        ->orWhereNull('active_until');
-                });
-        });
+        $query
+            ->where('active_from', '<', $now)
+            ->where(function (Builder $query) use ($now) {
+                $query
+                    ->where('active_until', '>', $now)
+                    ->orWhereNull('active_until');
+            });
     }
 
     public function dismissals(): HasMany

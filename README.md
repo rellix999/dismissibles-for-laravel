@@ -45,9 +45,11 @@ return new class () extends Migration {
     public function up(): void
     {
         DB::table('dismissibles')->insert([
-            'name'         => 'Happy New Year popup',
+            'name'         => 'Happy New Year popup', // This is your **unique** identifier
             'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
-            'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'),
+            'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'), // If there is no end date, set it to `null`
+            'created_at'   => Date::now(),
+            'updated_at'   => Date::now(),
         ]);
     }
     
@@ -72,9 +74,8 @@ class SomeController {
     {
         ...
     
-        // Only existing and active(!) Dismissibles are returned
         // It's recommended to fetch the name through something like: config('dismissibles.new_years_popup.name') 
-        $newYearsPopup = Dismissible::firstWhere(['name' => 'Happy New Year popup']);
+        $newYearsPopup = Dismissible::active()->firstWhere(['name' => 'Happy New Year popup']);
         
         $showPopup = !$user->hasDismissed($newYearsPopup);
         
@@ -90,7 +91,7 @@ class SomeController {
     {
         ...
         
-        $newYearsPopup = Dismissible::firstWhere(['name' => 'Happy New Year popup']);
+        $newYearsPopup = Dismissible::active()->firstWhere(['name' => 'Happy New Year popup']);
         
         // Any of these:
         $user->dismiss($newYearsPopup)->forToday();
