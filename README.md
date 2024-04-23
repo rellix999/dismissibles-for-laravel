@@ -79,7 +79,7 @@ class SomeController {
         
         ...
         
-        $showPopup = !$user->hasDismissed($newYearsPopup);
+        $showPopup = $newYearsPopup && !$user->hasDismissed($newYearsPopup);
         
         ...
     }
@@ -95,7 +95,9 @@ class SomeController {
         
         $newYearsPopup = Dismissible::active()->firstWhere(['name' => 'Happy New Year popup']);
         
-        // Any of these:
+        // Check if exists
+        
+        // Dismiss for a specified period using any of these:
         $user->dismiss($newYearsPopup)->forToday();
         $user->dismiss($newYearsPopup)->forHours($hours);
         $user->dismiss($newYearsPopup)->forDays($days);
