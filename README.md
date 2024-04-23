@@ -3,9 +3,9 @@
 A Laravel package for easily handling recurring, dismissible objects like popups/notifications on the server side.
 
 ## What problem does this solve?
-Say you have a (dismissible) popup you want to show every day for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
+Say you have a dismissible popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
 
-This packages handles everything the complex logic regarding whether it (dismissible) should be shown to the current user at the current moment. It's highly customizable, making it very flexible for many scenario's.
+This packages handles the complex logic regarding whether it (dismissible) should be shown to the current user at the current moment. It's highly customizable, making it very flexible for many scenario's.
 
 Because it's serverside we can easily get statistics like who dismissed what, when and where.
 
@@ -35,7 +35,7 @@ class User
 ```
 
 ### 2. Create a dismissible (migration)
-You can also do it inline using `firstOrCreate` instead of `firstWhere`.
+You can also create an artisan command or do it inline using `firstOrCreate` instead of `firstWhere`.
 ```php
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -76,6 +76,8 @@ class SomeController {
     
         // It's recommended to fetch the name through something like: config('dismissibles.new_years_popup.name') 
         $newYearsPopup = Dismissible::active()->firstWhere(['name' => 'Happy New Year popup']);
+        
+        ...
         
         $showPopup = !$user->hasDismissed($newYearsPopup);
         
