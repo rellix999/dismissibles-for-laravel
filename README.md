@@ -77,8 +77,6 @@ class SomeController {
         // It's recommended to fetch the name through something like: config('dismissibles.new_years_popup.name') 
         $newYearsPopup = Dismissible::active()->firstWhere(['name' => 'Happy New Year popup']);
         
-        ...
-        
         $showPopup = $newYearsPopup && !$user->hasDismissed($newYearsPopup);
         
         ...
