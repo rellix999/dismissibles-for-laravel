@@ -1,6 +1,6 @@
 # Laravel Dismissibles
 
-A Laravel package for easily handling recurring, dismissible objects like popups/notifications on the server side.
+A Laravel package for easily handling recurring, dismissible objects like popups/notifications/modals on the server side.
 
 ## What problem does this solve?
 Say you have a dismissible popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
