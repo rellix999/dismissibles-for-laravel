@@ -16,7 +16,6 @@ class DismissibleFactory extends Factory
         $activeFrom = $this->faker->dateTimeBetween('-3 weeks', 'now');
 
         return [
-            'uuid'         => $this->faker->uuid(),
             'name'         => $this->faker->unique()->text(),
             'active_from'  => $activeFrom,
             'active_until' => $this->faker->optional() ? $this->faker->dateTimeBetween($activeFrom, '+3 weeks') : null,

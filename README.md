@@ -34,18 +34,30 @@ class User
 
 ```
 
-### 2. Create a dismissible
-It's recommended to do this through a database migration, but you can also do it inline using `firstOrCreate` instead of `firstWhere`.
+### 2. Create a dismissible (migration)
+You can also do it inline using `firstOrCreate` instead of `firstWhere`.
 ```php
-use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\DB;
+...
 
-$newYearsPopup = Dismissible::create([
-    'name'          => 'Happy New Year popup', 
-    'active_from'   => Date::createFromFormat('d-m-Y', '01-01-2030'),
-    'active_until'  => Date::createFromFormat('d-m-Y', '06-01-2030'),
-]);
+return new class () extends Migration {
+    public function up(): void
+    {
+        DB::table('dismissibles')->insert([
+            'name'         => 'Happy New Year popup',
+            'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
+            'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'),
+        ]);
+    }
+    
+    ...
+};
+```
 
+and run the migration
+```php
+php artisan migrate
 ```
 
 
@@ -106,9 +118,9 @@ The database structure allows you to easily track activity regarding dismissible
 
 
 ### Dismissibles (popups, notifications, modals)
-| id | uuid                                 | name                 | active_from         | active_until        | created_at          | updated_at          |
-|----|--------------------------------------|----------------------|---------------------|---------------------|---------------------|---------------------|
-| 3  | 0022d55a-03fa-4ff5-a0d0-670a6a8c9d8b | Happy New Year popup | 2030-01-01 00:00:00 | 2030-01-06 23:59:59 | 2029-12-15 17:35:54 | 2029-12-15 17:35:54 |
+| id | name                 | active_from         | active_until        | created_at          | updated_at          |
+|----|----------------------|---------------------|---------------------|---------------------|---------------------|
+| 3  | Happy New Year popup | 2030-01-01 00:00:00 | 2030-01-06 23:59:59 | 2029-12-15 17:35:54 | 2029-12-15 17:35:54 |
 
 
 ### Dismissals (activity)

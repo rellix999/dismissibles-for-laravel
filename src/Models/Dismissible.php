@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Str;
 use ThijsSchalk\LaravelDismissibles\Database\Factories\DismissibleFactory;
 
 class Dismissible extends Model
@@ -36,12 +35,6 @@ class Dismissible extends Model
     protected static function boot()
     {
         parent::boot();
-
-        static::creating(function ($model) {
-            if (empty($model->uuid)) {
-                $model->uuid = Str::uuid()->toString();
-            }
-        });
 
         static::addGlobalScope('active', function (Builder $query) {
             $now = Carbon::now();

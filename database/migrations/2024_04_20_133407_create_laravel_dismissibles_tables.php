@@ -11,7 +11,6 @@ return new class () extends Migration {
     {
         Schema::create('dismissibles', function (Blueprint $table) {
             $table->id();
-            $table->uuid();
             $table->string('name')->unique();
             $table->dateTime('active_from');
             $table->dateTime('active_until')->nullable();
