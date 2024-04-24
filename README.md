@@ -133,13 +133,4 @@ The database structure allows you to easily track activity regarding dismissible
 
 ## Buy me a coffee
 
-If you like this package, consider buying me a coffee :-).
-
-<form action="https://www.paypal.com/donate" method="post" target="_top">
-<input type="hidden" name="business" value="E6QBKXWLXMD92" />
-<input type="hidden" name="no_recurring" value="1" />
-<input type="hidden" name="item_name" value="Buy me a coffee" />
-<input type="hidden" name="currency_code" value="EUR" />
-<input type="image" src="https://www.paypalobjects.com/en_US/NL/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-<img alt="" border="0" src="https://www.paypal.com/en_NL/i/scr/pixel.gif" width="1" height="1" />
-</form>
+If you like this package, consider [buying me a coffee](https://www.paypal.com/donate/?business=E6QBKXWLXMD92&no_recurring=1&item_name=Buy+me+a+coffee&currency_code=EUR) :-).
