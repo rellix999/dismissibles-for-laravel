@@ -1,9 +1,20 @@
 {
     "name": "thijsschalk/laravel-dismissibles",
-    "description": "A Laravel package for easily handling recurring, dismissible objects like popups/notifications.",
+    "description": "A Laravel package for easily handling dismissible, recurring objects like popups/notifications/modals on the server side.",
     "version": "1.0.0",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel",
+        "dismissibles",
+        "dismissible",
+        "dismiss",
+        "popup",
+        "notification",
+        "modal",
+        "recurring",
+        "serverside"
+    ],
     "scripts": {
         "test": "./vendor/bin/phpunit",
         "test-coverage": "./vendor/bin/phpunit --coverage-text"
