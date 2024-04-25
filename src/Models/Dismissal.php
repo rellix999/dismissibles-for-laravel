@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ThijsSchalk\LaravelDismissibles\Models;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,12 +19,13 @@ class Dismissal extends Model
         'extra_data',
     ];
 
+    /** @var array<string, string> */
     protected $casts = [
         'dismissed_until' => 'immutable_datetime',
         'extra_data'      => 'array',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function newFactory(): DismissalFactory
     {
         return DismissalFactory::new();
     }

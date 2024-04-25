@@ -25,7 +25,7 @@ trait HasDismissibles
 
         return $this->dismissals()
             ->where('dismissible_id', $dismissible->id)
-            ->where(function (Builder $query) use ($dismissible, $moment) {
+            ->where(function (Builder $query) use ($moment) {
                 $query
                     ->where('dismissed_until', '>', $moment)
                     ->orWhereNull('dismissed_until');

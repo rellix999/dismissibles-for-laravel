@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace ThijsSchalk\LaravelDismissibles\Models;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
 use ThijsSchalk\LaravelDismissibles\Database\Factories\DismissibleFactory;
 
+/**
+ * @property int $id
+ */
 class Dismissible extends Model
 {
     use HasFactory;
@@ -22,12 +24,13 @@ class Dismissible extends Model
         'active_until',
     ];
 
+    /** @var array<string, string> */
     protected $casts = [
         'active_from'  => 'immutable_datetime',
         'active_until' => 'immutable_datetime',
     ];
 
-    protected static function newFactory(): Factory
+    protected static function newFactory(): DismissibleFactory
     {
         return DismissibleFactory::new();
     }

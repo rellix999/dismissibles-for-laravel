@@ -1,0 +1,13 @@
+parameters:
+    level: 9
+    paths:
+        - src
+    ignoreErrors:
+        # Since $extraData comes from the library consumer, we don't know the structure/contents:
+        -
+            message: '#Method [a-zA-Z0-9\\:()]+ has parameter \$extraData with no value type specified in iterable type array#'
+            path: src/Concerns/Dismiss.php
+        # Laravel magic:
+        -
+            message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\MorphMany::where\(\).#'
+            path: src/Traits/HasDismissibles.php
