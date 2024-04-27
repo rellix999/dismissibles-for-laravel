@@ -106,8 +106,6 @@ class SomeController {
             ->forThisCalendarYear();
             ->forever();
             ->until($dateTime);
-        
-        ...
     }
 }
 ```
@@ -117,8 +115,8 @@ class SomeController {
 - You can use the `Dismissible` and `Dismissal` Eloquent models as usual.
 - I've provided a couple more facade methods for your convenience. Feel free to request more. 
 ```php
-public static function get(string $name): ?Dismissible
-public static function isDismissed(string $name, Dismisser $dismisser): bool
+public static function get(string $name): ?Dismissible;
+public static function isDismissed(string $name, Dismisser $dismisser): bool;
 ```
 
 ## Database tables
