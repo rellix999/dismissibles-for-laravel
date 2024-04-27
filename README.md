@@ -1,3 +1,5 @@
+![Laravel Dismissibles](./images/laravel-dismissibles.jpg)
+
 # Laravel Dismissibles
 
 A Laravel package for easily handling recurring, dismissible objects like popups/notifications/modals on the server side.
@@ -58,7 +60,7 @@ return new class () extends Migration {
 };
 ```
 
-and run the create migration:
+and run your created migration:
 ```php
 php artisan migrate
 ```
