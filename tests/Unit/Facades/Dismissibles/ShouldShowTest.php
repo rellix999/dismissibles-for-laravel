@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissibles\Tests\Unit\Facades\Dismissibles;
+namespace Rellix\LaravelDismissibles\Tests\Unit\Facades\Dismissibles;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Test;
-use ThijsSchalk\LaravelDismissibles\Facades\Dismissibles;
-use ThijsSchalk\LaravelDismissibles\Models\Dismissal;
-use ThijsSchalk\LaravelDismissibles\Models\Dismisser;
-use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
-use ThijsSchalk\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\LaravelDismissibles\Facades\Dismissibles;
+use Rellix\LaravelDismissibles\Models\Dismissal;
+use Rellix\LaravelDismissibles\Models\Dismisser;
+use Rellix\LaravelDismissibles\Models\Dismissible;
+use Rellix\LaravelDismissibles\Tests\BaseTestCase;
 
 class ShouldShowTest extends BaseTestCase
 {

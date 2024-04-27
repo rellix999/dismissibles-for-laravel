@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissibles\Database\Factories;
+namespace Rellix\LaravelDismissibles\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use ThijsSchalk\LaravelDismissibles\Models\Dismisser;
+use Rellix\LaravelDismissibles\Models\Dismisser;
 
 class DismisserFactory extends Factory
 {

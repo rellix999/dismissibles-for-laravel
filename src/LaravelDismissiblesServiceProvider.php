@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissibles;
+namespace Rellix\LaravelDismissibles;
 
 use Illuminate\Support\ServiceProvider;
-use ThijsSchalk\LaravelDismissibles\Facades\Dismissibles;
+use Rellix\LaravelDismissibles\Facades\Dismissibles;
 
 class LaravelDismissiblesServiceProvider extends ServiceProvider
 {

@@ -12,7 +12,7 @@ Because it's serverside we can easily get statistics like who dismissed what, wh
 ## Installation
 1. Require the package in your Laravel application
 ```shell
-composer require thijsschalk/laravel-dismissibles
+composer require rellix/laravel-dismissibles
 ```
 
 2. Run the migrations to create the database tables
@@ -24,8 +24,8 @@ php artisan migrate
 
 ### 1. Add the interface and trait to any model
 ```php
-use ThijsSchalk\LaravelDismissibles\Contracts\Dismisser;
-use ThijsSchalk\LaravelDismissibles\Traits\HasDismissibles;
+use Rellix\LaravelDismissibles\Contracts\Dismisser;
+use Rellix\LaravelDismissibles\Traits\HasDismissibles;
 
 class User implements Dismisser
 {
@@ -66,7 +66,7 @@ php artisan migrate
 
 ### 3. Check whether it should be shown at the current moment
 ```php
-use ThijsSchalk\LaravelDismissibles\Facades\Dismissibles;
+use Rellix\LaravelDismissibles\Facades\Dismissibles;
 
 class SomeController {
     public function index()
@@ -84,7 +84,7 @@ class SomeController {
 
 ### 4. Dismiss it for a specified period
 ```php
-use ThijsSchalk\LaravelDismissibles\Facades\Dismissibles;
+use Rellix\LaravelDismissibles\Facades\Dismissibles;
 
 class SomeController {
     public function dismiss()

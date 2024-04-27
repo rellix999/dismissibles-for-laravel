@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissibles\Models;
+namespace Rellix\LaravelDismissibles\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use ThijsSchalk\LaravelDismissibles\Database\Factories\DismissalFactory;
+use Rellix\LaravelDismissibles\Database\Factories\DismissalFactory;
 
 class Dismissal extends Model
 {

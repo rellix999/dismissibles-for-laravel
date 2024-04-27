@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ThijsSchalk\LaravelDismissibles\Tests;
+namespace Rellix\LaravelDismissibles\Tests;
 
 use Orchestra\Testbench\TestCase;
-use ThijsSchalk\LaravelDismissibles\LaravelDismissiblesServiceProvider;
+use Rellix\LaravelDismissibles\LaravelDismissiblesServiceProvider;
 
 abstract class BaseTestCase extends TestCase
 {
