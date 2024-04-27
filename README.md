@@ -97,17 +97,17 @@ class SomeController {
         
         Dismissibles::dismiss('Happy New Year popup', $user)
             ->forToday();
-            ->forHours($hours);
-            ->forDays($days);
-            ->forWeeks($weeks);
-            ->forMonths($months);
-            ->forYears($years);
+            ->forHours($numberOfHours);
+            ->forDays($numberOfDays);
+            ->forWeeks($numberOfWeeks);
+            ->forMonths($numberOfMonths);
+            ->forYears($numberOfYears);
             ->forThisCalendarWeek();
             ->forThisCalendarMonth();
             ->forThisCalendarQuarter();
             ->forThisCalendarYear();
-            ->forever();
             ->until($dateTime);
+            ->forever();
     }
 }
 ```
