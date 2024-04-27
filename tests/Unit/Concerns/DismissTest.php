@@ -15,10 +15,10 @@ use ThijsSchalk\LaravelDismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {
-    private Dismissible $dismissible;
-    private Dismisser $dismisser;
+    private readonly Dismissible $dismissible;
+    private readonly Dismisser $dismisser;
 
-    private Dismiss $dismiss;
+    private readonly Dismiss $dismiss;
 
     public function setUp(): void
     {
@@ -27,7 +27,7 @@ class DismissTest extends BaseTestCase
         $this->dismissible = Dismissible::factory()->create();
         $this->dismisser = Dismisser::factory()->create();
 
-        $this->dismiss = $this->dismisser->dismiss($this->dismissible);
+        $this->dismiss = new Dismiss($this->dismisser, $this->dismissible);
     }
 
     #[Test]

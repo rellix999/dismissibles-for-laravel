@@ -41,7 +41,10 @@
         "laravel": {
             "providers": [
                 "ThijsSchalk\\LaravelDismissibles\\LaravelDismissiblesServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Dismissibles": "ThijsSchalk\\LaravelDismissibles\\Facades\\Dismissibles"
+            }
         }
     },
     "require-dev": {

@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace ThijsSchalk\LaravelDismissibles\Concerns;
 
 use DateTimeInterface;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use ThijsSchalk\LaravelDismissibles\Contracts\Dismisser;
 use ThijsSchalk\LaravelDismissibles\Models\Dismissal;
 use ThijsSchalk\LaravelDismissibles\Models\Dismissible;
 
 class Dismiss
 {
     public function __construct(
-        public readonly Model $dismisser,
+        public readonly Dismisser $dismisser,
         public readonly Dismissible $dismissible
     ) {
     }

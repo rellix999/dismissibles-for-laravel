@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ThijsSchalk\LaravelDismissibles\Models;
 
+use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ use Illuminate\Support\Carbon;
 use ThijsSchalk\LaravelDismissibles\Database\Factories\DismissibleFactory;
 
 /**
- * @property int $id
+ * @property Carbon $active_from
  */
 class Dismissible extends Model
 {
@@ -40,12 +41,17 @@ class Dismissible extends Model
         $now = Carbon::now();
 
         $query
-            ->where('active_from', '<', $now)
+            ->where('active_from', '<=', $now)
             ->where(function (Builder $query) use ($now) {
                 $query
                     ->where('active_until', '>', $now)
                     ->orWhereNull('active_until');
             });
+    }
+
+    public function activePeriod(): CarbonPeriod
+    {
+        return CarbonPeriod::create($this->active_from, $this->active_until);
     }
 
     public function dismissals(): HasMany
