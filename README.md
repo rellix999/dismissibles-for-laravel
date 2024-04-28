@@ -48,8 +48,8 @@ return new class () extends Migration {
     public function up(): void
     {
         DB::table('dismissibles')->insert([
-            'name'         => 'Happy New Year popup', // This is your **unique** identifier
-            'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2024'),
+            'name'         => 'Test Popup', // This is your **unique** identifier
+            'active_from'  => Date::createFromFormat('d-m-Y', '01-03-2024'),
             'active_until' => null, // Optional end date
             'created_at'   => Date::now(),
             'updated_at'   => Date::now(),
@@ -75,11 +75,11 @@ class SomeController {
     {
         ...
     
-        // It's recommended to fetch the name through something like: config('dismissibles.new_years_popup.name')
+        // It's recommended to fetch the name through something like: config('dismissibles.test_popup.name')
+        $showPopup = Dismissibles::shouldShow('Test Popup', $user);
         
-        $showPopup = Dismissibles::shouldShow('Happy New Year popup', $user);
-        
-        // You can add your own conditionals here like:
+        // Here are some more examples, including ones with additional conditionals:
+        $showPopup = Dismissibles::shouldShow('Happy New Year 2025 Popup', $user);
         $showPopup = !$user->is_subscribed && Dismissibles::shouldShow('Newsletter signup modal', $user);
         $showPopup = !$user->has_completed_profile && Dismissibles::shouldShow('Complete your profile notification', $user);
         
@@ -97,10 +97,10 @@ class SomeController {
     {
         ...
         
-        Dismissibles::dismiss('Happy New Year popup', $user)->untilNextYear();
+        Dismissibles::dismiss('Test Popup', $user)->untilNextWeek();
         
         // Here's an overview of all the ways you can dismiss:
-        Dismissibles::dismiss('Happy New Year popup', $user)
+        Dismissibles::dismiss('Test Popup', $user)
             ->untilTomorrow();
             ->untilNextWeek();
             ->untilNextMonth();
@@ -130,15 +130,15 @@ public static function isDismissed(string $name, Dismisser $dismisser): bool;
 The database structure allows you to easily track activity regarding dismissibles. Due to the `extra_data` column it's also very flexible!
 
 ### dismissibles (popups, notifications, modals)
-| id | name                 | active_from         | active_until | created_at          | updated_at          |
-|----|----------------------|---------------------|--------------|---------------------|---------------------|
-| 3  | Happy New Year popup | 2024-01-01 00:00:00 | null         | 2023-12-15 17:35:54 | 2023-12-15 17:35:54 |
+| id | name       | active_from         | active_until | created_at          | updated_at          |
+|----|------------|---------------------|--------------|---------------------|---------------------|
+| 3  | Test Popup | 2024-03-01 00:00:00 | null         | 2023-12-15 17:35:54 | 2023-12-15 17:35:54 |
 
 
 ### dismissals (activity)
 | id | dismissible_id | dismisser_type  | dismisser_id | dismissed_until     | extra_data                   | created_at          | updated_at          |
 |----|----------------|-----------------|--------------|---------------------|------------------------------|---------------------|---------------------|
-| 15 | 3              | App\Models\User | 328          | 2025-01-01 00:00:00 | "{\"route\":\"home.index\"}" | 2024-01-02 17:35:54 | 2024-01-02 17:35:54 |
+| 15 | 3              | App\Models\User | 328          | 2024-04-29 00:00:00 | "{\"route\":\"home.index\"}" | 2024-04-28 17:35:54 | 2024-04-28 17:35:54 |
 
 ## Buy me a coffee
 If you like this package, consider [buying me a coffee](https://www.paypal.com/donate/?business=E6QBKXWLXMD92&no_recurring=1&item_name=Buy+me+a+coffee&currency_code=EUR&amount=2.50) :-).
