@@ -7,7 +7,7 @@ A Laravel package for easily handling recurring, dismissible objects like popups
 ## What problem does this solve?
 Say you have a dismissible popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
 
-This packages handles the complex logic regarding whether it (dismissible) should be shown to the current user at the current moment. It's highly customizable, making it very flexible for many scenario's.
+This packages handles the complex logic regarding whether the popup (dismissible) should be shown to the current user at the current moment. It's highly customizable, making it very flexible for many scenario's.
 
 Because it's serverside we can easily get statistics like who dismissed what, when and where.
 
@@ -49,8 +49,8 @@ return new class () extends Migration {
     {
         DB::table('dismissibles')->insert([
             'name'         => 'Happy New Year popup', // This is your **unique** identifier
-            'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2030'),
-            'active_until' => Date::createFromFormat('d-m-Y', '06-01-2030'), // If there is no end date, set it to `null`
+            'active_from'  => Date::createFromFormat('d-m-Y', '01-01-2024'),
+            'active_until' => null, // Optional end date
             'created_at'   => Date::now(),
             'updated_at'   => Date::now(),
         ]);
@@ -79,6 +79,10 @@ class SomeController {
         
         $showPopup = Dismissibles::shouldShow('Happy New Year popup', $user);
         
+        // You can add your own conditionals here like:
+        $showPopup = !$user->is_subscribed && Dismissibles::shouldShow('Newsletter signup modal', $user);
+        $showPopup = !$user->has_completed_profile && Dismissibles::shouldShow('Complete your profile notification', $user);
+        
         ...
     }
 }
@@ -93,20 +97,21 @@ class SomeController {
     {
         ...
         
-        // Dismiss for a specified period using any of these:
+        Dismissibles::dismiss('Happy New Year popup', $user)->untilNextYear();
         
+        // Here's an overview of all the ways you can dismiss:
         Dismissibles::dismiss('Happy New Year popup', $user)
-            ->forToday();
+            ->untilTomorrow();
+            ->untilNextWeek();
+            ->untilNextMonth();
+            ->untilNextQuarter();
+            ->untilNextYear();
+            ->until($dateTime);
             ->forHours($numberOfHours);
             ->forDays($numberOfDays);
             ->forWeeks($numberOfWeeks);
             ->forMonths($numberOfMonths);
             ->forYears($numberOfYears);
-            ->forThisCalendarWeek();
-            ->forThisCalendarMonth();
-            ->forThisCalendarQuarter();
-            ->forThisCalendarYear();
-            ->until($dateTime);
             ->forever();
     }
 }
@@ -125,15 +130,15 @@ public static function isDismissed(string $name, Dismisser $dismisser): bool;
 The database structure allows you to easily track activity regarding dismissibles. Due to the `extra_data` column it's also very flexible!
 
 ### dismissibles (popups, notifications, modals)
-| id | name                 | active_from         | active_until        | created_at          | updated_at          |
-|----|----------------------|---------------------|---------------------|---------------------|---------------------|
-| 3  | Happy New Year popup | 2030-01-01 00:00:00 | 2030-01-06 23:59:59 | 2029-12-15 17:35:54 | 2029-12-15 17:35:54 |
+| id | name                 | active_from         | active_until | created_at          | updated_at          |
+|----|----------------------|---------------------|--------------|---------------------|---------------------|
+| 3  | Happy New Year popup | 2024-01-01 00:00:00 | null         | 2023-12-15 17:35:54 | 2023-12-15 17:35:54 |
 
 
 ### dismissals (activity)
 | id | dismissible_id | dismisser_type  | dismisser_id | dismissed_until     | extra_data                   | created_at          | updated_at          |
 |----|----------------|-----------------|--------------|---------------------|------------------------------|---------------------|---------------------|
-| 15 | 3              | App\Models\User | 328          | 2030-01-02 23:59:59 | "{\"route\":\"home.index\"}" | 2030-01-02 17:35:54 | 2030-01-02 17:35:54 |
+| 15 | 3              | App\Models\User | 328          | 2025-01-01 00:00:00 | "{\"route\":\"home.index\"}" | 2024-01-02 17:35:54 | 2024-01-02 17:35:54 |
 
 ## Buy me a coffee
 If you like this package, consider [buying me a coffee](https://www.paypal.com/donate/?business=E6QBKXWLXMD92&no_recurring=1&item_name=Buy+me+a+coffee&currency_code=EUR&amount=2.50) :-).

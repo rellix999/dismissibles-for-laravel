@@ -18,11 +18,44 @@ class Dismiss
     ) {
     }
 
-    public function forToday(?array $extraData = null): void
+    public function untilTomorrow(?array $extraData = null): void
     {
-        $until = Carbon::now()->endOfDay();
+        $until = Carbon::tomorrow();
 
         $this->dismiss($until, $extraData);
+    }
+
+    public function untilNextWeek(?array $extraData = null): void
+    {
+        $until = Carbon::now()->addWeek()->startOfWeek();
+
+        $this->dismiss($until, $extraData);
+    }
+
+    public function untilNextMonth(?array $extraData = null): void
+    {
+        $until = Carbon::now()->addMonth()->startOfMonth();
+
+        $this->dismiss($until, $extraData);
+    }
+
+    public function untilNextQuarter(?array $extraData = null): void
+    {
+        $until = Carbon::now()->addQuarter()->startOfQuarter();
+
+        $this->dismiss($until, $extraData);
+    }
+
+    public function untilNextYear(?array $extraData = null): void
+    {
+        $until = Carbon::now()->addYear()->startOfYear();
+
+        $this->dismiss($until, $extraData);
+    }
+
+    public function until(DateTimeInterface $dateTime, ?array $extraData = null): void
+    {
+        $this->dismiss($dateTime, $extraData);
     }
 
     public function forHours(int $hours, ?array $extraData = null): void
@@ -58,39 +91,6 @@ class Dismiss
         $until = Carbon::now()->addYears($years);
 
         $this->dismiss($until, $extraData);
-    }
-
-    public function forThisCalendarWeek(?array $extraData = null): void
-    {
-        $until = Carbon::now()->endOfWeek();
-
-        $this->dismiss($until, $extraData);
-    }
-
-    public function forThisCalendarMonth(?array $extraData = null): void
-    {
-        $until = Carbon::now()->endOfMonth();
-
-        $this->dismiss($until, $extraData);
-    }
-
-    public function forThisCalendarQuarter(?array $extraData = null): void
-    {
-        $until = Carbon::now()->endOfQuarter();
-
-        $this->dismiss($until, $extraData);
-    }
-
-    public function forThisCalendarYear(?array $extraData = null): void
-    {
-        $until = Carbon::now()->endOfYear();
-
-        $this->dismiss($until, $extraData);
-    }
-
-    public function until(DateTimeInterface $dateTime, ?array $extraData = null): void
-    {
-        $this->dismiss($dateTime, $extraData);
     }
 
     public function forever(?array $extraData = null): void

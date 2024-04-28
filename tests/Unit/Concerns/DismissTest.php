@@ -31,12 +31,87 @@ class DismissTest extends BaseTestCase
     }
 
     #[Test]
-    #[DataProvider('forTodayDataProvider')]
-    public function for_today(string $now, string $expectedDismissedUntil)
+    #[DataProvider('untilTomorrowDataProvider')]
+    public function until_tomorrow(string $now, string $expectedDismissedUntil)
     {
         $this->setTestNow($now);
 
-        $this->dismiss->forToday();
+        $this->dismiss->untilTomorrow();
+
+        $expectedData = $this->getExpectedDismissalData([
+            'dismissed_until' => $expectedDismissedUntil,
+        ]);
+
+        $this->assertDatabaseHas('dismissals', $expectedData);
+    }
+
+    #[Test]
+    #[DataProvider('untilNextWeekDataProvider')]
+    public function until_next_week(string $now, string $expectedDismissedUntil)
+    {
+        $this->setTestNow($now);
+
+        $this->dismiss->untilNextWeek();
+
+        $expectedData = $this->getExpectedDismissalData([
+            'dismissed_until' => $expectedDismissedUntil,
+        ]);
+
+        $this->assertDatabaseHas('dismissals', $expectedData);
+    }
+
+    #[Test]
+    #[DataProvider('untilNextMonthDataProvider')]
+    public function until_next_month(string $now, string $expectedDismissedUntil)
+    {
+        $this->setTestNow($now);
+
+        $this->dismiss->untilNextMonth();
+
+        $expectedData = $this->getExpectedDismissalData([
+            'dismissed_until' => $expectedDismissedUntil,
+        ]);
+
+        $this->assertDatabaseHas('dismissals', $expectedData);
+    }
+
+    #[Test]
+    #[DataProvider('untilNextQuarterDataProvider')]
+    public function until_next_quarter(string $now, string $expectedDismissedUntil)
+    {
+        $this->setTestNow($now);
+
+        $this->dismiss->untilNextQuarter();
+
+        $expectedData = $this->getExpectedDismissalData([
+            'dismissed_until' => $expectedDismissedUntil,
+        ]);
+
+        $this->assertDatabaseHas('dismissals', $expectedData);
+    }
+
+    #[Test]
+    #[DataProvider('untilNextYearDataProvider')]
+    public function until_next_year(string $now, string $expectedDismissedUntil)
+    {
+        $this->setTestNow($now);
+
+        $this->dismiss->untilNextYear();
+
+        $expectedData = $this->getExpectedDismissalData([
+            'dismissed_until' => $expectedDismissedUntil,
+        ]);
+
+        $this->assertDatabaseHas('dismissals', $expectedData);
+    }
+
+    #[Test]
+    #[DataProvider('untilDataProvider')]
+    public function until(string $now, DateTimeInterface $dateTime, string $expectedDismissedUntil)
+    {
+        $this->setTestNow($now);
+
+        $this->dismiss->until($dateTime);
 
         $expectedData = $this->getExpectedDismissalData([
             'dismissed_until' => $expectedDismissedUntil,
@@ -121,81 +196,6 @@ class DismissTest extends BaseTestCase
     }
 
     #[Test]
-    #[DataProvider('forThisCalendarWeekDataProvider')]
-    public function for_this_calendar_week(string $now, string $expectedDismissedUntil)
-    {
-        $this->setTestNow($now);
-
-        $this->dismiss->forThisCalendarWeek();
-
-        $expectedData = $this->getExpectedDismissalData([
-            'dismissed_until' => $expectedDismissedUntil,
-        ]);
-
-        $this->assertDatabaseHas('dismissals', $expectedData);
-    }
-
-    #[Test]
-    #[DataProvider('forThisCalendarMonthDataProvider')]
-    public function for_this_calendar_month(string $now, string $expectedDismissedUntil)
-    {
-        $this->setTestNow($now);
-
-        $this->dismiss->forThisCalendarMonth();
-
-        $expectedData = $this->getExpectedDismissalData([
-            'dismissed_until' => $expectedDismissedUntil,
-        ]);
-
-        $this->assertDatabaseHas('dismissals', $expectedData);
-    }
-
-    #[Test]
-    #[DataProvider('forThisCalendarQuarterDataProvider')]
-    public function for_this_calendar_quarter(string $now, string $expectedDismissedUntil)
-    {
-        $this->setTestNow($now);
-
-        $this->dismiss->forThisCalendarQuarter();
-
-        $expectedData = $this->getExpectedDismissalData([
-            'dismissed_until' => $expectedDismissedUntil,
-        ]);
-
-        $this->assertDatabaseHas('dismissals', $expectedData);
-    }
-
-    #[Test]
-    #[DataProvider('forThisCalendarYearDataProvider')]
-    public function for_this_calendar_year(string $now, string $expectedDismissedUntil)
-    {
-        $this->setTestNow($now);
-
-        $this->dismiss->forThisCalendarYear();
-
-        $expectedData = $this->getExpectedDismissalData([
-            'dismissed_until' => $expectedDismissedUntil,
-        ]);
-
-        $this->assertDatabaseHas('dismissals', $expectedData);
-    }
-
-    #[Test]
-    #[DataProvider('untilDataProvider')]
-    public function until(string $now, DateTimeInterface $dateTime, string $expectedDismissedUntil)
-    {
-        $this->setTestNow($now);
-
-        $this->dismiss->until($dateTime);
-
-        $expectedData = $this->getExpectedDismissalData([
-            'dismissed_until' => $expectedDismissedUntil,
-        ]);
-
-        $this->assertDatabaseHas('dismissals', $expectedData);
-    }
-
-    #[Test]
     #[DataProvider('foreverDataProvider')]
     public function forever(string $now)
     {
@@ -210,12 +210,61 @@ class DismissTest extends BaseTestCase
         $this->assertDatabaseHas('dismissals', $expectedData);
     }
 
-    public static function forTodayDataProvider(): array
+    public static function untilTomorrowDataProvider(): array
     {
         return [
-            ['2023-01-01 00:00:00', '2023-01-01 23:59:59'],
-            ['2023-08-16 14:00:00', '2023-08-16 23:59:59'],
-            ['2023-12-31 23:59:59', '2023-12-31 23:59:59'],
+            ['2023-01-01 00:00:00', '2023-01-02 00:00:00'],
+            ['2023-08-16 14:00:00', '2023-08-17 00:00:00'],
+            ['2023-12-31 23:59:59', '2024-01-01 00:00:00'],
+        ];
+    }
+
+    public static function untilNextWeekDataProvider()
+    {
+        return [
+            ['2023-08-16 14:00:00', '2023-08-21 00:00:00'],
+            ['2023-09-01 12:00:00', '2023-09-04 00:00:00'],
+        ];
+    }
+
+    public static function untilNextMonthDataProvider()
+    {
+        return [
+            ['2023-08-16 14:00:00', '2023-09-01 00:00:00'],
+            ['2023-09-01 13:01:59', '2023-10-01 00:00:00'],
+        ];
+    }
+
+    public static function untilNextQuarterDataProvider()
+    {
+        return [
+            ['2023-08-16 14:00:00', '2023-10-01 00:00:00'],
+            ['2023-01-01 22:10:13', '2023-04-01 00:00:00'],
+        ];
+    }
+
+    public static function untilNextYearDataProvider()
+    {
+        return [
+            ['2023-08-16 14:00:00', '2024-01-01 00:00:00'],
+            ['2023-01-01 14:00:00', '2024-01-01 00:00:00'],
+            ['2024-12-31 14:00:00', '2025-01-01 00:00:00'],
+        ];
+    }
+
+    public static function untilDataProvider()
+    {
+        return [
+            [
+                '2023-08-16 14:00:00',
+                Carbon::createFromFormat('d-m-Y H:i:s', '20-08-2023 12:32:02'),
+                '2023-08-20 12:32:02',
+            ],
+            [
+                '2023-01-01 14:00:00',
+                Carbon::createFromFormat('d-m-Y H:i:s', '01-01-2023 14:00:01'),
+                '2023-01-01 14:00:01',
+            ],
         ];
     }
 
@@ -270,55 +319,6 @@ class DismissTest extends BaseTestCase
             ['2023-08-16 14:00:00', 6, '2029-08-16 14:00:00'],
             ['2023-08-16 14:00:00', 12, '2035-08-16 14:00:00'],
             ['2023-08-16 14:00:00', 50, '2073-08-16 14:00:00'],
-        ];
-    }
-
-    public static function forThisCalendarWeekDataProvider()
-    {
-        return [
-            ['2023-08-16 14:00:00', '2023-08-20 23:59:59'],
-            ['2023-09-01 12:00:00', '2023-09-03 23:59:59'],
-        ];
-    }
-
-    public static function forThisCalendarMonthDataProvider()
-    {
-        return [
-            ['2023-08-16 14:00:00', '2023-08-31 23:59:59'],
-            ['2023-09-01 13:01:59', '2023-09-30 23:59:59'],
-        ];
-    }
-
-    public static function forThisCalendarQuarterDataProvider()
-    {
-        return [
-            ['2023-08-16 14:00:00', '2023-09-30 23:59:59'],
-            ['2023-01-01 22:10:13', '2023-03-31 23:59:59'],
-        ];
-    }
-
-    public static function forThisCalendarYearDataProvider()
-    {
-        return [
-            ['2023-08-16 14:00:00', '2023-12-31 23:59:59'],
-            ['2023-01-01 14:00:00', '2023-12-31 23:59:59'],
-            ['2024-12-31 14:00:00', '2024-12-31 23:59:59'],
-        ];
-    }
-
-    public static function untilDataProvider()
-    {
-        return [
-            [
-                '2023-08-16 14:00:00',
-                Carbon::createFromFormat('d-m-Y H:i:s', '20-08-2023 12:32:02'),
-                '2023-08-20 12:32:02',
-            ],
-            [
-                '2023-01-01 14:00:00',
-                Carbon::createFromFormat('d-m-Y H:i:s', '01-01-2023 14:00:01'),
-                '2023-01-01 14:00:01',
-            ],
         ];
     }
 
