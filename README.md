@@ -38,7 +38,6 @@ class User implements Dismisser
 ```
 
 ### 2. Create a dismissible (migration)
-You can also create an artisan command or do it inline using `firstOrCreate` instead of `firstWhere`.
 ```php
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -65,6 +64,23 @@ and run your created migration:
 php artisan migrate
 ```
 
+<details>
+
+<summary>Click here to view how you can create/fetch a Dismissible inline using the "active"-scope and "firstOrCreate".</summary>
+
+```php
+Dismissible::active()->firstOrCreate(
+    ['name' => 'Test Popup'], 
+    [
+        'active_from'  => Date::createFromFormat('d-m-Y', '01-03-2024'),
+        'active_until' => null,
+        'created_at'   => Date::now(),
+        'updated_at'   => Date::now(),
+    ]
+);
+```
+
+</details>
 
 ### 3. Check whether it should be shown at the current moment
 ```php
