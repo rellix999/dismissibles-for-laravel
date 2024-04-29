@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Facades;
+namespace Rellix\Dismissibles\Facades;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
-use Rellix\LaravelDismissibles\Concerns\Dismiss;
-use Rellix\LaravelDismissibles\Contracts\Dismisser;
-use Rellix\LaravelDismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Concerns\Dismiss;
+use Rellix\Dismissibles\Contracts\Dismisser;
+use Rellix\Dismissibles\Models\Dismissible;
 
 class Dismissibles extends Facade
 {

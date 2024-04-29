@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Concerns;
+namespace Rellix\Dismissibles\Concerns;
 
 use DateTimeInterface;
 use Illuminate\Support\Carbon;
-use Rellix\LaravelDismissibles\Contracts\Dismisser;
-use Rellix\LaravelDismissibles\Models\Dismissal;
-use Rellix\LaravelDismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Contracts\Dismisser;
+use Rellix\Dismissibles\Models\Dismissal;
+use Rellix\Dismissibles\Models\Dismissible;
 
 class Dismiss
 {

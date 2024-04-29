@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Database\Factories;
+namespace Rellix\Dismissibles\Database\Factories;
 
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Rellix\LaravelDismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\Dismissible;
 
 class DismissibleFactory extends Factory
 {

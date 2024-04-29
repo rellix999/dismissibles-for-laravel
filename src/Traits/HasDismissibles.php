@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Traits;
+namespace Rellix\Dismissibles\Traits;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Rellix\LaravelDismissibles\Models\Dismissal;
+use Rellix\Dismissibles\Models\Dismissal;
 
 trait HasDismissibles
 {

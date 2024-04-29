@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests\Unit\Concerns;
+namespace Rellix\Dismissibles\Tests\Unit\Concerns;
 
 use DateTimeInterface;
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\LaravelDismissibles\Concerns\Dismiss;
-use Rellix\LaravelDismissibles\Models\Dismisser;
-use Rellix\LaravelDismissibles\Models\Dismissible;
-use Rellix\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\Dismissibles\Concerns\Dismiss;
+use Rellix\Dismissibles\Models\Dismisser;
+use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {

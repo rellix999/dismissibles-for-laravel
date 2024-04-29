@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Database\Factories;
+namespace Rellix\Dismissibles\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Rellix\LaravelDismissibles\Models\Dismissal;
-use Rellix\LaravelDismissibles\Models\Dismisser;
-use Rellix\LaravelDismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\Dismissal;
+use Rellix\Dismissibles\Models\Dismisser;
+use Rellix\Dismissibles\Models\Dismissible;
 
 class DismissalFactory extends Factory
 {

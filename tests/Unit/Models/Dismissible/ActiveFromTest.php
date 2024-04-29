@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests\Unit\Models\Dismissible;
+namespace Rellix\Dismissibles\Tests\Unit\Models\Dismissible;
 
 use Carbon\CarbonImmutable;
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\LaravelDismissibles\Models\Dismissible;
-use Rellix\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class ActiveFromTest extends BaseTestCase
 {

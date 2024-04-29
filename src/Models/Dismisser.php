@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Models;
+namespace Rellix\Dismissibles\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Rellix\LaravelDismissibles\Contracts\Dismisser as DismisserContract;
-use Rellix\LaravelDismissibles\Database\Factories\DismisserFactory;
-use Rellix\LaravelDismissibles\Traits\HasDismissibles;
+use Rellix\Dismissibles\Contracts\Dismisser as DismisserContract;
+use Rellix\Dismissibles\Database\Factories\DismisserFactory;
+use Rellix\Dismissibles\Traits\HasDismissibles;
 
 class Dismisser extends Model implements DismisserContract
 {

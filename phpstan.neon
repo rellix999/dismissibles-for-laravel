@@ -8,8 +8,8 @@ parameters:
             message: '#Method [a-zA-Z0-9\\:()]+ has parameter \$extraData with no value type specified in iterable type array#'
             path: src/Concerns/Dismiss.php
         # Laravel magic:
-        - message: '#Call to an undefined static method Rellix\\LaravelDismissibles\\Models\\Dismissible::active\(\).#'
-        - message: '#Call to an undefined static method Rellix\\LaravelDismissibles\\Models\\Dismissible::firstWhere\(\).#'
+        - message: '#Call to an undefined static method Rellix\\Dismissibles\\Models\\Dismissible::active\(\).#'
+        - message: '#Call to an undefined static method Rellix\\Dismissibles\\Models\\Dismissible::firstWhere\(\).#'
         - message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\MorphMany::where\(\).#'
-        - message: '#Access to an undefined property Rellix\\LaravelDismissibles\\Models\\Dismissible::\$active_until#'
-        - message: '#Parameter \#[0-9] of method Illuminate\\Database\\Eloquent\\Relations\\MorphTo::associate() expects Illuminate\\Database\\Eloquent\\Model|null, Rellix\\LaravelDismissibles\\Contracts\\Dismisser given#'
+        - message: '#Access to an undefined property Rellix\\Dismissibles\\Models\\Dismissible::\$active_until#'
+        - message: '#Parameter \#[0-9] of method Illuminate\\Database\\Eloquent\\Relations\\MorphTo::associate() expects Illuminate\\Database\\Eloquent\\Model|null, Rellix\\Dismissibles\\Contracts\\Dismisser given#'

@@ -1,7 +1,7 @@
 {
-    "name": "rellix/laravel-dismissibles",
+    "name": "rellix/dismissibles-for-laravel",
     "description": "A Laravel package for easily handling dismissible, recurring objects like popups/notifications/modals on the server side.",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -22,13 +22,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Rellix\\LaravelDismissibles\\": "src/",
-            "Rellix\\LaravelDismissibles\\Database\\Factories\\": "database/factories"
+            "Rellix\\Dismissibles\\": "src/",
+            "Rellix\\Dismissibles\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rellix\\LaravelDismissibles\\Tests\\": "tests"
+            "Rellix\\Dismissibles\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",
@@ -40,10 +40,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rellix\\LaravelDismissibles\\LaravelDismissiblesServiceProvider"
+                "Rellix\\Dismissibles\\DismissiblesServiceProvider"
             ],
             "aliases": {
-                "Dismissibles": "Rellix\\LaravelDismissibles\\Facades\\Dismissibles"
+                "Dismissibles": "Rellix\\Dismissibles\\Facades\\Dismissibles"
             }
         }
     },

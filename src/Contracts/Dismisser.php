@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Contracts;
+namespace Rellix\Dismissibles\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Models;
+namespace Rellix\Dismissibles\Models;
 
 use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
-use Rellix\LaravelDismissibles\Database\Factories\DismissibleFactory;
+use Rellix\Dismissibles\Database\Factories\DismissibleFactory;
 
 /**
  * @property Carbon $active_from

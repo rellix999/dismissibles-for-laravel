@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests\Unit\Models\Dismissal;
+namespace Rellix\Dismissibles\Tests\Unit\Models\Dismissal;
 
 use DateTimeInterface;
 use Illuminate\Support\Facades\Date;
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\LaravelDismissibles\Models\Dismissal;
-use Rellix\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\Dismissibles\Models\Dismissal;
+use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissedUntilTest extends BaseTestCase
 {

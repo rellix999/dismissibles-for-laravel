@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests\Unit\Models\Dismissal;
+namespace Rellix\Dismissibles\Tests\Unit\Models\Dismissal;
 
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\LaravelDismissibles\Models\Dismissal;
-use Rellix\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\Dismissibles\Models\Dismissal;
+use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class ExtraDataTest extends BaseTestCase
 {

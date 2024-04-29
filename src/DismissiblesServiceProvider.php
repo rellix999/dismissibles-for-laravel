@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles;
+namespace Rellix\Dismissibles;
 
 use Illuminate\Support\ServiceProvider;
-use Rellix\LaravelDismissibles\Facades\Dismissibles;
+use Rellix\Dismissibles\Facades\Dismissibles;
 
-class LaravelDismissiblesServiceProvider extends ServiceProvider
+class DismissiblesServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {

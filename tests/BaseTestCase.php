@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests;
+namespace Rellix\Dismissibles\Tests;
 
 use Orchestra\Testbench\TestCase;
-use Rellix\LaravelDismissibles\LaravelDismissiblesServiceProvider;
+use Rellix\Dismissibles\DismissiblesServiceProvider;
 
 abstract class BaseTestCase extends TestCase
 {
@@ -18,7 +18,7 @@ abstract class BaseTestCase extends TestCase
 
     protected function getPackageProviders($app)
     {
-        return [LaravelDismissiblesServiceProvider::class];
+        return [DismissiblesServiceProvider::class];
     }
 
     protected function getEnvironmentSetUp($app)

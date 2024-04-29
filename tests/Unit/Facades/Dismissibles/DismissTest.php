@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests\Unit\Facades\Dismissibles;
+namespace Rellix\Dismissibles\Tests\Unit\Facades\Dismissibles;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\LaravelDismissibles\Concerns\Dismiss;
-use Rellix\LaravelDismissibles\Facades\Dismissibles;
-use Rellix\LaravelDismissibles\Models\Dismisser;
-use Rellix\LaravelDismissibles\Models\Dismissible;
-use Rellix\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\Dismissibles\Concerns\Dismiss;
+use Rellix\Dismissibles\Facades\Dismissibles;
+use Rellix\Dismissibles\Models\Dismisser;
+use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {

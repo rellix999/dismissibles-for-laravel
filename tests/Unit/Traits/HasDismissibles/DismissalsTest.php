@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Rellix\LaravelDismissibles\Tests\Unit\Traits\HasDismissibles;
+namespace Rellix\Dismissibles\Tests\Unit\Traits\HasDismissibles;
 
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\LaravelDismissibles\Models\Dismissal;
-use Rellix\LaravelDismissibles\Models\Dismisser;
-use Rellix\LaravelDismissibles\Models\Dismissible;
-use Rellix\LaravelDismissibles\Tests\BaseTestCase;
+use Rellix\Dismissibles\Models\Dismissal;
+use Rellix\Dismissibles\Models\Dismisser;
+use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissalsTest extends BaseTestCase
 {
