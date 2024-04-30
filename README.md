@@ -1,6 +1,6 @@
-![Dismissibles for Laravel](./images/dismissibles-for-laravel.jpg)
-
 # Dismissibles for Laravel
+
+![Dismissibles for Laravel](./images/dismissibles-for-laravel.jpg)
 
 A Laravel package for easily handling recurring, dismissible objects like popups/notifications/modals on the server side.
 
