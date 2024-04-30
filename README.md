@@ -91,7 +91,7 @@ class SomeController {
     {
         ...
     
-        // It's recommended to fetch the name through something like: config('dismissibles.test_popup.name')
+        // It's recommended to centralize dismissible names in an enum (or config)
         $showPopup = Dismissibles::shouldShow('Test Popup', $user);
         
         // Here are some more examples, including ones with additional conditionals:
