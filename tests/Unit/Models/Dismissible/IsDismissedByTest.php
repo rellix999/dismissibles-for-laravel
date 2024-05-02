@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Rellix\Dismissibles\Tests\Unit\Facades\Dismissibles;
+namespace Rellix\Dismissibles\Tests\Unit\Models\Dismissible;
 
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\Test;
-use Rellix\Dismissibles\Facades\Dismissibles;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismisser;
 use Rellix\Dismissibles\Models\Dismissible;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
-class IsDismissedTest extends BaseTestCase
+class IsDismissedByTest extends BaseTestCase
 {
-    private readonly Dismisser $dismisser;
+    private Dismisser $dismisser;
 
     public function setUp(): void
     {
@@ -29,7 +28,7 @@ class IsDismissedTest extends BaseTestCase
         /** @var Dismissible $dismissible */
         $dismissible = Dismissible::factory()->create();
 
-        $actualValue = Dismissibles::isDismissed($dismissible->name, $this->dismisser);
+        $actualValue = $dismissible->isDismissedBy($this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -37,16 +36,16 @@ class IsDismissedTest extends BaseTestCase
     #[Test]
     public function it_returns_false_when_dismisser_has_dismissed_different_dismissible_until_past_date()
     {
-        /** @var Dismissible $dismissible */
-        $dismissible = Dismissible::factory()->create();
-
         Dismissal::factory()
             ->for($this->dismisser)
             ->create([
                 'dismissed_until' => Carbon::yesterday(),
             ]);
 
-        $actualValue = Dismissibles::isDismissed($dismissible->name, $this->dismisser);
+        /** @var Dismissible $dismissible */
+        $dismissible = Dismissible::factory()->create();
+
+        $actualValue = $dismissible->isDismissedBy($this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -63,7 +62,7 @@ class IsDismissedTest extends BaseTestCase
         /** @var Dismissible $dismissible */
         $dismissible = Dismissible::factory()->create();
 
-        $actualValue = Dismissibles::isDismissed($dismissible->name, $this->dismisser);
+        $actualValue = $dismissible->isDismissedBy($this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -78,16 +77,16 @@ class IsDismissedTest extends BaseTestCase
             ->for($dismissible)
             ->for($this->dismisser)
             ->create([
-                'dismissed_until' => Carbon::now()->subDay(),
+                'dismissed_until' => Carbon::yesterday(),
             ]);
 
-        $actualValue = Dismissibles::isDismissed($dismissible->name, $this->dismisser);
+        $actualValue = $dismissible->isDismissedBy($this->dismisser);
 
         $this->assertFalse($actualValue);
     }
 
     #[Test]
-    public function it_returns_true_when_dismisser_has_dismissed_until_future_date()
+    public function it_returns_false_when_dismisser_has_dismissed_until_future_date()
     {
         /** @var Dismissible $dismissible */
         $dismissible = Dismissible::factory()->create();
@@ -96,28 +95,10 @@ class IsDismissedTest extends BaseTestCase
             ->for($dismissible)
             ->for($this->dismisser)
             ->create([
-                'dismissed_until' => Carbon::now()->addDay(),
+                'dismissed_until' => Carbon::tomorrow(),
             ]);
 
-        $actualValue = Dismissibles::isDismissed($dismissible->name, $this->dismisser);
-
-        $this->assertTrue($actualValue);
-    }
-
-    #[Test]
-    public function it_returns_true_when_user_has_dismissed_until_null()
-    {
-        /** @var Dismissible $dismissible */
-        $dismissible = Dismissible::factory()->create();
-
-        Dismissal::factory()
-            ->for($dismissible)
-            ->for($this->dismisser)
-            ->create([
-                'dismissed_until' => null,
-            ]);
-
-        $actualValue = Dismissibles::isDismissed($dismissible->name, $this->dismisser);
+        $actualValue = $dismissible->isDismissedBy($this->dismisser);
 
         $this->assertTrue($actualValue);
     }

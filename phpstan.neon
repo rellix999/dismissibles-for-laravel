@@ -10,6 +10,6 @@ parameters:
         # Laravel magic:
         - message: '#Call to an undefined static method Rellix\\Dismissibles\\Models\\Dismissible::active\(\).#'
         - message: '#Call to an undefined static method Rellix\\Dismissibles\\Models\\Dismissible::firstWhere\(\).#'
-        - message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\MorphMany::where\(\).#'
-        - message: '#Access to an undefined property Rellix\\Dismissibles\\Models\\Dismissible::\$active_until#'
+        - message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany::where\(\).#'
+        - message: '#Access to an undefined property Rellix\\Dismissibles\\Contracts\\Dismisser::\$id#'
         - message: '#Parameter \#[0-9] of method Illuminate\\Database\\Eloquent\\Relations\\MorphTo::associate() expects Illuminate\\Database\\Eloquent\\Model|null, Rellix\\Dismissibles\\Contracts\\Dismisser given#'

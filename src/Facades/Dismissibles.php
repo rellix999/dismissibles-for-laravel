@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Rellix\Dismissibles\Facades;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Facade;
 use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Contracts\Dismisser;
@@ -32,11 +30,8 @@ class Dismissibles extends Facade
     public static function shouldShow(string $name, Dismisser $dismisser): bool
     {
         $dismissible = self::get($name);
-        if (!$dismissible) {
-            return false;
-        }
 
-        return !self::isDismissed($name, $dismisser);
+        return $dismissible && !$dismissible->isDismissedBy($dismisser);
     }
 
     /**
@@ -57,15 +52,9 @@ class Dismissibles extends Facade
      */
     public static function isDismissed(string $name, Dismisser $dismisser): bool
     {
+        /** @var Dismissible $dismissible */
         $dismissible = Dismissible::firstWhere('name', $name);
 
-        return $dismisser->dismissals()
-            ->where('dismissible_id', $dismissible->id)
-            ->where(function (Builder $query) {
-                $query
-                    ->where('dismissed_until', '>', Carbon::now())
-                    ->orWhereNull('dismissed_until');
-            })
-            ->exists();
+        return $dismissible->isDismissedBy($dismisser);
     }
 }

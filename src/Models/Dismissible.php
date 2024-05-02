@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Database\Factories\DismissibleFactory;
 
-/**
- * @property Carbon $active_from
- */
 class Dismissible extends Model
 {
     use HasFactory;
@@ -51,5 +49,17 @@ class Dismissible extends Model
     public function dismissals(): HasMany
     {
         return $this->hasMany(Dismissal::class);
+    }
+
+    public function isDismissedBy(Dismisser $dismisser): bool
+    {
+        return $this->dismissals()
+            ->where('dismisser_id', $dismisser->id)
+            ->where(function (Builder $query) {
+                $query
+                    ->where('dismissed_until', '>', Carbon::now())
+                    ->orWhereNull('dismissed_until');
+            })
+            ->exists();
     }
 }
