@@ -2,12 +2,12 @@
 
 ![Dismissibles for Laravel](./images/dismissibles-for-laravel.jpg)
 
-A Laravel package for easily handling recurring, dismissible objects like popups/notifications/modals on the server side.
+A Laravel package for easily managing the visibility of your recurring, dismissible objects like popups/notifications/modals on the backend. This package does not include frontend components, so it's compatible with any frontend you can use.
 
 ## What problem does this solve?
-Say you have a dismissible popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
+Say you have a popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
 
-This packages handles the complex logic regarding whether the popup (dismissible) should be shown to the current user at the current moment. It's highly customizable, making it very flexible for many scenario's.
+This packages handles the complex logic regarding whether the (dismissible) popup should be shown to the current user at the current moment. It basically handles the visibility of your dismissible. It's highly customizable, making it very flexible for many scenario's.
 
 Because it's serverside we can easily get statistics like who dismissed what, when and where.
 
@@ -98,6 +98,7 @@ class SomeController {
         $showPopup = Dismissibles::shouldShow('Happy New Year 2025 Popup', $user);
         $showPopup = !$user->is_subscribed && Dismissibles::shouldShow('Newsletter signup modal', $user);
         $showPopup = !$user->has_completed_profile && Dismissibles::shouldShow('Complete your profile notification', $user);
+        $showPopup = !$user->has_orders && Dismissibles::shouldShow('50% Off First Purchase Popup', $user);
         
         ...
     }
