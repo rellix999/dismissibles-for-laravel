@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rellix\Dismissibles\Models;
 
-use Carbon\CarbonPeriod;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -47,11 +46,6 @@ class Dismissible extends Model
                     ->where('active_until', '>', $now)
                     ->orWhereNull('active_until');
             });
-    }
-
-    public function activePeriod(): CarbonPeriod
-    {
-        return CarbonPeriod::create($this->active_from, $this->active_until);
     }
 
     public function dismissals(): HasMany
