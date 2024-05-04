@@ -28,8 +28,10 @@ class Dismissibles extends Facade
     /**
      * Returns all active dismissibles for the given $dismisser.
      * It excludes the dismissibles that are dismissed until a future date.
+     *
+     * @return Collection<Dismissible>
      */
-    public static function getAllThatShouldBeShownTo(Dismisser $dismisser): ?Collection
+    public static function getAllThatShouldBeShownTo(Dismisser $dismisser): Collection
     {
         return Dismissible::active()->notDismissedBy($dismisser)->get();
     }
