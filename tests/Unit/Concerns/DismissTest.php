@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
+use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismissible;
 use Rellix\Dismissibles\Models\TestDismisserTypeOne;
@@ -18,7 +19,7 @@ use Rellix\Dismissibles\Tests\BaseTestCase;
 class DismissTest extends BaseTestCase
 {
     private readonly Dismissible $dismissible;
-    private readonly TestDismisserTypeOne $dismisser;
+    private readonly Dismisser $dismisser;
 
     private readonly Dismiss $dismiss;
 

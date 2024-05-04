@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
+use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Facades\Dismissibles;
 use Rellix\Dismissibles\Models\Dismissible;
 use Rellix\Dismissibles\Models\TestDismisserTypeOne;
@@ -16,7 +17,7 @@ use Rellix\Dismissibles\Tests\BaseTestCase;
 class DismissTest extends BaseTestCase
 {
     private readonly Dismissible $dismissible;
-    private readonly TestDismisserTypeOne $dismisser;
+    private readonly Dismisser $dismisser;
 
     public function setUp(): void
     {
