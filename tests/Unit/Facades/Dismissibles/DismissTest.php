@@ -9,21 +9,21 @@ use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Facades\Dismissibles;
-use Rellix\Dismissibles\Models\Dismisser;
 use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\TestDismisserOne;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {
     private readonly Dismissible $dismissible;
-    private readonly Dismisser $dismisser;
+    private readonly TestDismisserOne $dismisser;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->dismissible = Dismissible::factory()->active()->create();
-        $this->dismisser = Dismisser::factory()->create();
+        $this->dismisser = TestDismisserOne::factory()->create();
     }
 
     #[Test]

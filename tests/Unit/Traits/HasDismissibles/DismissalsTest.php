@@ -6,21 +6,21 @@ namespace Rellix\Dismissibles\Tests\Unit\Traits\HasDismissibles;
 
 use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Models\Dismissal;
-use Rellix\Dismissibles\Models\Dismisser;
 use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\TestDismisserOne;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissalsTest extends BaseTestCase
 {
     public function it_returns_all_dismissals_by_a_dismisser_of_the_same_dismissibles()
     {
-        /** @var Dismisser $dismisser */
-        $dismisser = Dismisser::factory()->create();
+        /** @var TestDismisserOne $dismisser */
+        $dismisser = TestDismisserOne::factory()->create();
 
         $dismissible = Dismissible::factory()->create();
 
         Dismissal::factory(5)
-            ->for($dismisser)
+            ->for($dismisser, 'dismisser')
             ->for($dismissible)
             ->create();
 
@@ -38,11 +38,11 @@ class DismissalsTest extends BaseTestCase
     #[Test]
     public function it_returns_all_dismissals_by_a_dismisser_of_different_dismissibles()
     {
-        /** @var Dismisser $dismisser */
-        $dismisser = Dismisser::factory()->create();
+        /** @var TestDismisserOne $dismisser */
+        $dismisser = TestDismisserOne::factory()->create();
 
         Dismissal::factory(5)
-            ->for($dismisser)
+            ->for($dismisser, 'dismisser')
             ->create();
 
         $actualValue = $dismisser->dismissals;
@@ -58,14 +58,14 @@ class DismissalsTest extends BaseTestCase
     #[Test]
     public function it_only_returns_dismissals_of_the_dismisser()
     {
-        /** @var Dismisser $dismisser */
-        $dismisser = Dismisser::factory()->create();
+        /** @var TestDismisserOne $dismisser */
+        $dismisser = TestDismisserOne::factory()->create();
 
         /** @var Dismissible $dismissible */
         $dismissible = Dismissible::factory()->create();
 
         $expectedDismissal = Dismissal::factory()
-            ->for($dismisser)
+            ->for($dismisser, 'dismisser')
             ->for($dismissible)
             ->create();
 

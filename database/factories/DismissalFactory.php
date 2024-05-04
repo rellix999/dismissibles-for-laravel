@@ -6,8 +6,8 @@ namespace Rellix\Dismissibles\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Rellix\Dismissibles\Models\Dismissal;
-use Rellix\Dismissibles\Models\Dismisser;
 use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\TestDismisserOne;
 
 class DismissalFactory extends Factory
 {
@@ -16,8 +16,8 @@ class DismissalFactory extends Factory
     public function definition(): array
     {
         return [
-            'dismisser_id'    => fn () => Dismisser::factory()->create(),
-            'dismisser_type'  => Dismisser::class,
+            'dismisser_id'    => fn () => TestDismisserOne::factory()->create(),
+            'dismisser_type'  => TestDismisserOne::class,
             'dismissible_id'  => fn () => Dismissible::factory()->create(),
             'dismissed_until' => function (array $attributes) {
                 if ($this->faker->optional()) {

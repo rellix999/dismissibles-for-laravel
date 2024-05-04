@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Rellix\Dismissibles\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Rellix\Dismissibles\Models\Dismisser;
+use Rellix\Dismissibles\Models\TestDismisserOne;
 
-class DismisserFactory extends Factory
+class TestDismisserOneFactory extends Factory
 {
-    protected $model = Dismisser::class;
+    protected $model = TestDismisserOne::class;
 
     public function definition(): array
     {

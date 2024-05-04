@@ -7,10 +7,11 @@ namespace Rellix\Dismissibles\Tests\Unit\Facades\Dismissibles;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriod;
 use PHPUnit\Framework\Attributes\Test;
+use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Facades\Dismissibles;
 use Rellix\Dismissibles\Models\Dismissal;
-use Rellix\Dismissibles\Models\Dismisser;
 use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\TestDismisserOne;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class ShouldShowTest extends BaseTestCase
@@ -21,7 +22,7 @@ class ShouldShowTest extends BaseTestCase
     {
         parent::setUp();
 
-        $this->dismisser = Dismisser::factory()->create();
+        $this->dismisser = TestDismisserOne::factory()->create();
     }
 
     #[Test]
@@ -58,7 +59,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->subDay(),
             ]);
@@ -80,7 +81,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->addDay(),
             ]);
@@ -102,7 +103,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => null,
             ]);
@@ -139,7 +140,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->subDay(),
             ]);
@@ -161,7 +162,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->addDay(),
             ]);
@@ -198,7 +199,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->subDay(),
             ]);
@@ -220,7 +221,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->addDay(),
             ]);
@@ -242,7 +243,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => null,
             ]);
@@ -279,7 +280,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->subDay(),
             ]);
@@ -301,7 +302,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => $now->addDay(),
             ]);
@@ -323,7 +324,7 @@ class ShouldShowTest extends BaseTestCase
 
         Dismissal::factory()
             ->for($dismissible)
-            ->for($this->dismisser)
+            ->for($this->dismisser, 'dismisser')
             ->create([
                 'dismissed_until' => null,
             ]);

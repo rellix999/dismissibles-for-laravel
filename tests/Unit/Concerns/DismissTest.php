@@ -9,14 +9,14 @@ use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
-use Rellix\Dismissibles\Models\Dismisser;
 use Rellix\Dismissibles\Models\Dismissible;
+use Rellix\Dismissibles\Models\TestDismisserOne;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {
     private readonly Dismissible $dismissible;
-    private readonly Dismisser $dismisser;
+    private readonly TestDismisserOne $dismisser;
 
     private readonly Dismiss $dismiss;
 
@@ -25,7 +25,7 @@ class DismissTest extends BaseTestCase
         parent::setUp();
 
         $this->dismissible = Dismissible::factory()->create();
-        $this->dismisser = Dismisser::factory()->create();
+        $this->dismisser = TestDismisserOne::factory()->create();
 
         $this->dismiss = new Dismiss($this->dismisser, $this->dismissible);
     }
@@ -341,7 +341,7 @@ class DismissTest extends BaseTestCase
         return [
             'dismissible_id' => $this->dismissible->id,
             'dismisser_id'   => $this->dismisser->id,
-            'dismisser_type' => Dismisser::class,
+            'dismisser_type' => TestDismisserOne::class,
             ...$expectedData,
         ];
     }
