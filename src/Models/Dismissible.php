@@ -38,19 +38,6 @@ class Dismissible extends Model
         return DismissibleFactory::new();
     }
 
-    public function scopeActive(Builder $query): void
-    {
-        $now = Carbon::now();
-
-        $query
-            ->where('active_from', '<=', $now)
-            ->where(function (Builder $query) use ($now) {
-                $query
-                    ->where('active_until', '>', $now)
-                    ->orWhereNull('active_until');
-            });
-    }
-
     public function dismissals(): HasMany
     {
         return $this->hasMany(Dismissal::class);
@@ -64,13 +51,21 @@ class Dismissible extends Model
     public function isDismissedBy(Dismisser $dismisser): bool
     {
         return $this->dismissals()
-            ->where('dismisser_type', get_class($dismisser))
-            ->where('dismisser_id', $dismisser->id)
-            ->where(function (Builder $query) {
-                $query
-                    ->where('dismissed_until', '>', Carbon::now())
-                    ->orWhereNull('dismissed_until');
-            })
+            ->dismissedBy($dismisser)
+            ->dismissedNow()
             ->exists();
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $now = Carbon::now();
+
+        $query
+            ->where('active_from', '<=', $now)
+            ->where(function (Builder $query) use ($now) {
+                $query
+                    ->where('active_until', '>', $now)
+                    ->orWhereNull('active_until');
+            });
     }
 }
