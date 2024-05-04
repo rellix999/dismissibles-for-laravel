@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rellix\Dismissibles\Facades;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Facade;
 use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Contracts\Dismisser;
@@ -17,11 +18,20 @@ class Dismissibles extends Facade
     }
 
     /**
-     * Gets the active(!) dismissible from the database by name.
+     * Returns the active dismissible if it exists.
      */
     public static function get(string $name): ?Dismissible
     {
         return Dismissible::active()->firstWhere('name', $name);
+    }
+
+    /**
+     * Returns all active dismissibles for the given $dismisser.
+     * It excludes the dismissibles that are dismissed until a future date.
+     */
+    public static function getAllThatShouldBeShownTo(Dismisser $dismisser): ?Collection
+    {
+        return Dismissible::active()->notDismissedBy($dismisser)->get();
     }
 
     /**

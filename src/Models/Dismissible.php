@@ -68,4 +68,11 @@ class Dismissible extends Model
                     ->orWhereNull('active_until');
             });
     }
+
+    public function scopeNotDismissedBy(Builder $query, Dismisser $dismisser): void
+    {
+        $query->whereDoesntHave('dismissals', function (Builder $query) use ($dismisser) {
+            $query->dismissedBy($dismisser)->dismissedNow();
+        });
+    }
 }
