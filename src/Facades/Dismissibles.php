@@ -29,7 +29,7 @@ class Dismissibles extends Facade
      * Returns all active dismissibles for the given $dismisser.
      * It excludes the dismissibles that are dismissed until a future date.
      *
-     * @return Collection<Dismissible>
+     * @return Collection<int, Dismissible>
      */
     public static function getAllThatShouldBeShownTo(Dismisser $dismisser): Collection
     {
