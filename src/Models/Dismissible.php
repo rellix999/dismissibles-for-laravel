@@ -64,6 +64,7 @@ class Dismissible extends Model
     public function isDismissedBy(Dismisser $dismisser): bool
     {
         return $this->dismissals()
+            ->where('dismisser_type', get_class($dismisser))
             ->where('dismisser_id', $dismisser->id)
             ->where(function (Builder $query) {
                 $query
