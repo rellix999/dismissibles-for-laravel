@@ -9,8 +9,10 @@ use Illuminate\Support\Carbon;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
+use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismissible;
 use Rellix\Dismissibles\Models\TestDismisserOne;
+use Rellix\Dismissibles\Models\TestDismisserTwo;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
@@ -28,6 +30,44 @@ class DismissTest extends BaseTestCase
         $this->dismisser = TestDismisserOne::factory()->create();
 
         $this->dismiss = new Dismiss($this->dismisser, $this->dismissible);
+    }
+
+    #[Test]
+    public function it_creates_a_dismissal_with_the_correct_type_and_id_for_type_one()
+    {
+        $dismissible = Dismissible::factory()->create();
+        $dismisser = TestDismisserOne::factory()->create();
+        $dismiss = new Dismiss($dismisser, $dismissible);
+
+        $dismiss->untilTomorrow();
+
+        /** @var Dismissal $dismissal */
+        $dismissal = Dismissal::orderBy('id', 'desc')->first();
+
+        $this->assertDatabaseHas('dismissals', [
+            'id'             => $dismissal->id,
+            'dismisser_type' => TestDismisserOne::class,
+            'dismisser_id'   => $dismisser->id,
+        ]);
+    }
+
+    #[Test]
+    public function it_creates_a_dismissal_with_the_correct_type_and_id_for_type_two()
+    {
+        $dismissible = Dismissible::factory()->create();
+        $dismisser = TestDismisserTwo::factory()->create();
+        $dismiss = new Dismiss($dismisser, $dismissible);
+
+        $dismiss->untilTomorrow();
+
+        /** @var Dismissal $dismissal */
+        $dismissal = Dismissal::orderBy('id', 'desc')->first();
+
+        $this->assertDatabaseHas('dismissals', [
+            'id'             => $dismissal->id,
+            'dismisser_type' => TestDismisserTwo::class,
+            'dismisser_id'   => $dismisser->id,
+        ]);
     }
 
     #[Test]
