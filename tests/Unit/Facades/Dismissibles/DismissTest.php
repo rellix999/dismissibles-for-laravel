@@ -10,20 +10,20 @@ use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Facades\Dismissibles;
 use Rellix\Dismissibles\Models\Dismissible;
-use Rellix\Dismissibles\Models\TestDismisserOne;
+use Rellix\Dismissibles\Models\TestDismisserTypeOne;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {
     private readonly Dismissible $dismissible;
-    private readonly TestDismisserOne $dismisser;
+    private readonly TestDismisserTypeOne $dismisser;
 
     public function setUp(): void
     {
         parent::setUp();
 
         $this->dismissible = Dismissible::factory()->active()->create();
-        $this->dismisser = TestDismisserOne::factory()->create();
+        $this->dismisser = TestDismisserTypeOne::factory()->create();
     }
 
     #[Test]

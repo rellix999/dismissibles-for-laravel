@@ -9,8 +9,8 @@ use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismissible;
-use Rellix\Dismissibles\Models\TestDismisserOne;
-use Rellix\Dismissibles\Models\TestDismisserTwo;
+use Rellix\Dismissibles\Models\TestDismisserTypeOne;
+use Rellix\Dismissibles\Models\TestDismisserTypeTwo;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class IsDismissedByTest extends BaseTestCase
@@ -21,7 +21,7 @@ class IsDismissedByTest extends BaseTestCase
     {
         parent::setUp();
 
-        $this->dismisser = TestDismisserOne::factory()->create();
+        $this->dismisser = TestDismisserTypeOne::factory()->create();
     }
 
     #[Test]
@@ -108,11 +108,11 @@ class IsDismissedByTest extends BaseTestCase
     #[Test]
     public function it_returns_the_correct_value_when_dismissal_with_same_id_but_different_type_exists()
     {
-        TestDismisserOne::truncate();
-        TestDismisserTwo::truncate();
+        TestDismisserTypeOne::truncate();
+        TestDismisserTypeTwo::truncate();
 
-        $dismisserOfTypeOne = TestDismisserOne::factory()->create();
-        $dismisserOfTypeTwo = TestDismisserTwo::factory()->create();
+        $dismisserOfTypeOne = TestDismisserTypeOne::factory()->create();
+        $dismisserOfTypeTwo = TestDismisserTypeTwo::factory()->create();
 
         $this->assertEquals($dismisserOfTypeOne->id, $dismisserOfTypeTwo->id);
 

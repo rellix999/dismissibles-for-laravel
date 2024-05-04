@@ -11,14 +11,14 @@ use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismissible;
-use Rellix\Dismissibles\Models\TestDismisserOne;
-use Rellix\Dismissibles\Models\TestDismisserTwo;
+use Rellix\Dismissibles\Models\TestDismisserTypeOne;
+use Rellix\Dismissibles\Models\TestDismisserTypeTwo;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class DismissTest extends BaseTestCase
 {
     private readonly Dismissible $dismissible;
-    private readonly TestDismisserOne $dismisser;
+    private readonly TestDismisserTypeOne $dismisser;
 
     private readonly Dismiss $dismiss;
 
@@ -27,7 +27,7 @@ class DismissTest extends BaseTestCase
         parent::setUp();
 
         $this->dismissible = Dismissible::factory()->create();
-        $this->dismisser = TestDismisserOne::factory()->create();
+        $this->dismisser = TestDismisserTypeOne::factory()->create();
 
         $this->dismiss = new Dismiss($this->dismisser, $this->dismissible);
     }
@@ -36,7 +36,7 @@ class DismissTest extends BaseTestCase
     public function it_creates_a_dismissal_with_the_correct_type_and_id_for_type_one()
     {
         $dismissible = Dismissible::factory()->create();
-        $dismisser = TestDismisserOne::factory()->create();
+        $dismisser = TestDismisserTypeOne::factory()->create();
         $dismiss = new Dismiss($dismisser, $dismissible);
 
         $dismiss->untilTomorrow();
@@ -46,7 +46,7 @@ class DismissTest extends BaseTestCase
 
         $this->assertDatabaseHas('dismissals', [
             'id'             => $dismissal->id,
-            'dismisser_type' => TestDismisserOne::class,
+            'dismisser_type' => TestDismisserTypeOne::class,
             'dismisser_id'   => $dismisser->id,
         ]);
     }
@@ -55,7 +55,7 @@ class DismissTest extends BaseTestCase
     public function it_creates_a_dismissal_with_the_correct_type_and_id_for_type_two()
     {
         $dismissible = Dismissible::factory()->create();
-        $dismisser = TestDismisserTwo::factory()->create();
+        $dismisser = TestDismisserTypeTwo::factory()->create();
         $dismiss = new Dismiss($dismisser, $dismissible);
 
         $dismiss->untilTomorrow();
@@ -65,7 +65,7 @@ class DismissTest extends BaseTestCase
 
         $this->assertDatabaseHas('dismissals', [
             'id'             => $dismissal->id,
-            'dismisser_type' => TestDismisserTwo::class,
+            'dismisser_type' => TestDismisserTypeTwo::class,
             'dismisser_id'   => $dismisser->id,
         ]);
     }
@@ -381,7 +381,7 @@ class DismissTest extends BaseTestCase
         return [
             'dismissible_id' => $this->dismissible->id,
             'dismisser_id'   => $this->dismisser->id,
-            'dismisser_type' => TestDismisserOne::class,
+            'dismisser_type' => TestDismisserTypeOne::class,
             ...$expectedData,
         ];
     }

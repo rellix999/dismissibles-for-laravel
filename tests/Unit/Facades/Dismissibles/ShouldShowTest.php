@@ -11,7 +11,7 @@ use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Facades\Dismissibles;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismissible;
-use Rellix\Dismissibles\Models\TestDismisserOne;
+use Rellix\Dismissibles\Models\TestDismisserTypeOne;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
 class ShouldShowTest extends BaseTestCase
@@ -22,7 +22,7 @@ class ShouldShowTest extends BaseTestCase
     {
         parent::setUp();
 
-        $this->dismisser = TestDismisserOne::factory()->create();
+        $this->dismisser = TestDismisserTypeOne::factory()->create();
     }
 
     #[Test]

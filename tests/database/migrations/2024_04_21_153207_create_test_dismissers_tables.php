@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class () extends Migration {
-    private array $tables = ['test_dismisser_ones', 'test_dismisser_twos'];
+    private array $tables = ['test_dismisser_type_ones', 'test_dismisser_type_twos'];
 
     public function up(): void
     {

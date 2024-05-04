@@ -7,16 +7,16 @@ namespace Rellix\Dismissibles\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Rellix\Dismissibles\Contracts\Dismisser as DismisserContract;
-use Rellix\Dismissibles\Database\Factories\TestDismisserTwoFactory;
+use Rellix\Dismissibles\Database\Factories\TestDismisserTypeOneFactory;
 use Rellix\Dismissibles\Traits\HasDismissibles;
 
-class TestDismisserTwo extends Model implements DismisserContract
+class TestDismisserTypeOne extends Model implements DismisserContract
 {
     use HasFactory;
     use HasDismissibles;
 
-    protected static function newFactory(): TestDismisserTwoFactory
+    protected static function newFactory(): TestDismisserTypeOneFactory
     {
-        return TestDismisserTwoFactory::new();
+        return TestDismisserTypeOneFactory::new();
     }
 }
