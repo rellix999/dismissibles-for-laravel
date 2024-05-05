@@ -10,7 +10,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Models\Dismissible;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
-class ScopeActiveFromTest extends BaseTestCase
+class ScopeActiveTest extends BaseTestCase
 {
     #[Test]
     public function it_does_not_return_the_dismissible_before_active_period()
