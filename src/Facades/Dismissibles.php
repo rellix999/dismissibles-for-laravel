@@ -26,20 +26,19 @@ class Dismissibles extends Facade
     }
 
     /**
-     * Returns all active dismissibles for the given $dismisser.
-     * It excludes the dismissibles that are dismissed until a future date.
+     * Returns all active dismissibles that should be visible to the $dismisser.
      *
      * @return Collection<int, Dismissible>
      */
-    public static function getAllThatShouldBeShownTo(Dismisser $dismisser): Collection
+    public static function getAllFor(Dismisser $dismisser): Collection
     {
         return Dismissible::active()->notDismissedBy($dismisser)->get();
     }
 
     /**
-     * Returns whether the dismissible should be shown to the dismisser at the current moment.
+     * Returns whether the dismissible should be visible to the dismisser at the current moment.
      */
-    public static function shouldShow(string $name, Dismisser $dismisser): bool
+    public static function shouldBeVisible(string $name, Dismisser $dismisser): bool
     {
         $dismissible = self::get($name);
 

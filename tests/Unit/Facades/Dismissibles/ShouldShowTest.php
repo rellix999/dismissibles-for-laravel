@@ -28,7 +28,7 @@ class ShouldShowTest extends BaseTestCase
     #[Test]
     public function it_returns_false_when_dismissible_name_does_not_exist()
     {
-        $actualValue = Dismissibles::shouldShow('test', $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible('test', $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -42,7 +42,7 @@ class ShouldShowTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->addDay(), $now->addWeek()))
             ->create();
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -64,7 +64,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->subDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -86,7 +86,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->addDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -108,7 +108,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => null,
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -123,7 +123,7 @@ class ShouldShowTest extends BaseTestCase
             ->active(CarbonPeriod::create($now, $now->addWeeks(2)))
             ->create();
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertTrue($actualValue);
     }
@@ -145,7 +145,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->subDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertTrue($actualValue);
     }
@@ -167,7 +167,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->addDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -182,7 +182,7 @@ class ShouldShowTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->subDay(), $now->addDay()))
             ->create();
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertTrue($actualValue);
     }
@@ -204,7 +204,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->subDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertTrue($actualValue);
     }
@@ -226,7 +226,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->addDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -248,7 +248,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => null,
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -263,7 +263,7 @@ class ShouldShowTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->subDay(), $now->subSecond()))
             ->create();
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -285,7 +285,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->subDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -307,7 +307,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => $now->addDay(),
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }
@@ -329,7 +329,7 @@ class ShouldShowTest extends BaseTestCase
                 'dismissed_until' => null,
             ]);
 
-        $actualValue = Dismissibles::shouldShow($dismissible->name, $this->dismisser);
+        $actualValue = Dismissibles::shouldBeVisible($dismissible->name, $this->dismisser);
 
         $this->assertFalse($actualValue);
     }

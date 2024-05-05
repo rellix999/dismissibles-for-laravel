@@ -21,7 +21,9 @@ class ScopeActiveTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->addDay(), $now->addWeek()))
             ->create();
 
-        $this->assertEmpty(Dismissible::active()->get());
+        $actualValue = Dismissible::active()->get();
+
+        $this->assertEmpty($actualValue);
     }
 
     #[Test]
@@ -33,7 +35,9 @@ class ScopeActiveTest extends BaseTestCase
             ->active(CarbonPeriod::create($now, $now->addMinute()))
             ->create();
 
-        $this->assertNotEmpty(Dismissible::active()->get());
+        $actualValue = Dismissible::active()->get();
+
+        $this->assertNotEmpty($actualValue);
     }
 
     #[Test]
@@ -45,7 +49,9 @@ class ScopeActiveTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->subMinute(), $now->addMinute()))
             ->create();
 
-        $this->assertNotEmpty(Dismissible::active()->get());
+        $actualValue = Dismissible::active()->get();
+
+        $this->assertNotEmpty($actualValue);
     }
 
     #[Test]
@@ -57,7 +63,9 @@ class ScopeActiveTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->subMinute()))
             ->create();
 
-        $this->assertNotEmpty(Dismissible::active()->get());
+        $actualValue = Dismissible::active()->get();
+
+        $this->assertNotEmpty($actualValue);
     }
 
     #[Test]
@@ -69,6 +77,8 @@ class ScopeActiveTest extends BaseTestCase
             ->active(CarbonPeriod::create($now->subWeek(), $now->subDay()))
             ->create();
 
-        $this->assertEmpty(Dismissible::active()->get());
+        $actualValue = Dismissible::active()->get();
+
+        $this->assertEmpty($actualValue);
     }
 }

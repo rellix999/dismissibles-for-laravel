@@ -50,10 +50,14 @@ class Dismissal extends Model
             ->where('dismisser_id', $dismisser->id);
     }
 
-    public function scopeDismissedNow(Builder $query): void
+    public function scopeDismissedAt(Builder $query, ?Carbon $moment = null): void
     {
+        if (!$moment) {
+            $moment = Carbon::now();
+        }
+
         $query
-            ->where('dismissed_until', '>', Carbon::now())
+            ->where('dismissed_until', '>', $moment)
             ->orWhereNull('dismissed_until');
     }
 }

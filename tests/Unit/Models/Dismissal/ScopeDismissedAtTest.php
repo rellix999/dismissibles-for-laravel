@@ -9,12 +9,12 @@ use PHPUnit\Framework\Attributes\Test;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Tests\BaseTestCase;
 
-class ScopeDismissedNowTest extends BaseTestCase
+class ScopeDismissedAtTest extends BaseTestCase
 {
     #[Test]
     public function it_does_not_return_a_dismissal_when_none_exist()
     {
-        $this->assertEmpty(Dismissal::dismissedNow()->get());
+        $this->assertEmpty(Dismissal::dismissedAt()->get());
     }
 
     #[Test]
@@ -24,7 +24,7 @@ class ScopeDismissedNowTest extends BaseTestCase
             'dismissed_until' => Carbon::yesterday(),
         ]);
 
-        $this->assertEmpty(Dismissal::dismissedNow()->get());
+        $this->assertEmpty(Dismissal::dismissedAt()->get());
     }
 
     #[Test]
@@ -38,7 +38,7 @@ class ScopeDismissedNowTest extends BaseTestCase
             'dismissed_until' => $now,
         ]);
 
-        $this->assertEmpty(Dismissal::dismissedNow()->get());
+        $this->assertEmpty(Dismissal::dismissedAt()->get());
     }
 
     #[Test]
@@ -48,7 +48,7 @@ class ScopeDismissedNowTest extends BaseTestCase
             'dismissed_until' => Carbon::tomorrow(),
         ]);
 
-        $this->assertNotEmpty(Dismissal::dismissedNow()->get());
+        $this->assertNotEmpty(Dismissal::dismissedAt()->get());
     }
 
     #[Test]
@@ -58,6 +58,6 @@ class ScopeDismissedNowTest extends BaseTestCase
             'dismissed_until' => null,
         ]);
 
-        $this->assertNotEmpty(Dismissal::dismissedNow()->get());
+        $this->assertNotEmpty(Dismissal::dismissedAt()->get());
     }
 }

@@ -48,31 +48,41 @@ class Dismissible extends Model
         return CarbonPeriod::create($this->active_from, $this->active_until);
     }
 
-    public function isDismissedBy(Dismisser $dismisser): bool
+    public function isDismissedBy(Dismisser $dismisser, ?Carbon $moment = null): bool
     {
+        if (!$moment) {
+            $moment = Carbon::now();
+        }
+
         return $this->dismissals()
             ->dismissedBy($dismisser)
-            ->dismissedNow()
+            ->dismissedAt($moment)
             ->exists();
     }
 
-    public function scopeActive(Builder $query): void
+    public function scopeActive(Builder $query, ?Carbon $moment = null): void
     {
-        $now = Carbon::now();
+        if (!$moment) {
+            $moment = Carbon::now();
+        }
 
         $query
-            ->where('active_from', '<=', $now)
-            ->where(function (Builder $query) use ($now) {
+            ->where('active_from', '<=', $moment)
+            ->where(function (Builder $query) use ($moment) {
                 $query
-                    ->where('active_until', '>', $now)
+                    ->where('active_until', '>', $moment)
                     ->orWhereNull('active_until');
             });
     }
 
-    public function scopeNotDismissedBy(Builder $query, Dismisser $dismisser): void
+    public function scopeNotDismissedBy(Builder $query, Dismisser $dismisser, ?Carbon $moment = null): void
     {
-        $query->whereDoesntHave('dismissals', function (Builder $query) use ($dismisser) {
-            $query->dismissedBy($dismisser)->dismissedNow();
+        if (!$moment) {
+            $moment = Carbon::now();
+        }
+
+        $query->whereDoesntHave('dismissals', function (Builder $query) use ($dismisser, $moment) {
+            $query->dismissedBy($dismisser)->dismissedAt($moment);
         });
     }
 }

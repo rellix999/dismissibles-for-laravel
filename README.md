@@ -92,13 +92,16 @@ class SomeController {
         ...
     
         // It's recommended to centralize dismissible names in an enum (or config)
-        $showPopup = Dismissibles::shouldShow('Test Popup', $user);
+        $showPopup = Dismissibles::shouldBeVisible('Test Popup', $user);
         
         // Here are some more examples, including ones with additional conditionals:
-        $showPopup = Dismissibles::shouldShow('Happy New Year 2025 Popup', $user);
-        $showPopup = !$user->is_subscribed && Dismissibles::shouldShow('Newsletter signup modal', $user);
-        $showPopup = !$user->has_completed_profile && Dismissibles::shouldShow('Complete your profile notification', $user);
-        $showPopup = !$user->has_orders && Dismissibles::shouldShow('50% Off First Purchase Popup', $user);
+        $showPopup = Dismissibles::shouldBeVisible('Happy New Year 2025 Popup', $user);
+        $showPopup = !$user->is_subscribed && Dismissibles::shouldBeVisible('Newsletter signup modal', $user);
+        $showPopup = !$user->has_completed_profile && Dismissibles::shouldBeVisible('Complete your profile notification', $user);
+        $showPopup = !$user->has_orders && Dismissibles::shouldBeVisible('50% Off First Purchase Popup', $user);
+        
+        // You can also get all Dismissibles that should be visible
+        $dismissibles = Dismissibles::getAllFor($user);
         
         ...
     }
@@ -137,11 +140,7 @@ class SomeController {
 ### Notes
 - Need extra data regarding the dismissal? All methods above allow you to pass an `$extraData` array as last parameter which will be written to the `dismissals` table as json.
 - You can use the `Dismissible` and `Dismissal` Eloquent models as usual.
-- I've provided a couple more facade methods for your convenience. Feel free to request more. 
-```php
-public static function get(string $name): ?Dismissible;
-public static function isDismissed(string $name, Dismisser $dismisser): bool;
-```
+- Not all methods are listed above. Check the facade and models for more useful methods/scopes and feel free to request more.
 
 ## Database tables
 The database structure allows you to easily track activity regarding dismissibles. Due to the `extra_data` column it's also very flexible!
