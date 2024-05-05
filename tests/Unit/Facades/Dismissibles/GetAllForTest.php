@@ -115,6 +115,35 @@ class GetAllForTest extends BaseTestCase
     }
 
     #[Test]
+    public function it_returns_dismissibles_ordered_by_active_from_ascending()
+    {
+        $dismisser = TestDismisserTypeOne::factory()->create();
+
+        $now = CarbonImmutable::now();
+
+        /** @var Dismissible $dismissible */
+        $newestDismissible = Dismissible::factory()
+            ->active(CarbonPeriod::create($now->subDay(), $now->addWeek()))
+            ->create();
+
+        /** @var Dismissible $dismissible */
+        $oldestDismissible = Dismissible::factory()
+            ->active(CarbonPeriod::create($now->subMonth(), $now->addWeek()))
+            ->create();
+
+        /** @var Dismissible $dismissible */
+        $middleDismissible = Dismissible::factory()
+            ->active(CarbonPeriod::create($now->subWeek(), $now->addWeek()))
+            ->create();
+
+        $actualResult = Dismissibles::getAllFor($dismisser);
+
+        $this->assertTrue($actualResult->get(0)->is($oldestDismissible));
+        $this->assertTrue($actualResult->get(1)->is($middleDismissible));
+        $this->assertTrue($actualResult->get(2)->is($newestDismissible));
+    }
+
+    #[Test]
     public function it_does_not_return_dismissibles_which_are_dismissed_until_future_date_time()
     {
         $dismisser = TestDismisserTypeOne::factory()->create();

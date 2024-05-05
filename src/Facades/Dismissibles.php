@@ -32,7 +32,11 @@ class Dismissibles extends Facade
      */
     public static function getAllFor(Dismisser $dismisser): Collection
     {
-        return Dismissible::active()->notDismissedBy($dismisser)->get();
+        return Dismissible::query()
+            ->active()
+            ->notDismissedBy($dismisser)
+            ->orderBy('active_from', 'asc')
+            ->get();
     }
 
     /**
