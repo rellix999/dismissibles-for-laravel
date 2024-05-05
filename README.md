@@ -7,7 +7,7 @@ A Laravel package for easily managing the visibility of your recurring, dismissi
 ## What problem does this solve?
 Say you have a popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
 
-This packages handles the complex logic regarding whether the (dismissible) popup should be shown to the current user at the current moment. It basically handles the visibility of your dismissible. It's highly customizable, making it very flexible for many scenario's.
+This packages handles the complex logic regarding whether the (dismissible) popup should be visible to the current user at the current moment. It basically handles the visibility of your dismissible. It's highly customizable, making it very flexible for many scenario's.
 
 Because it's serverside we can easily get statistics like who dismissed what, when and where.
 
@@ -82,7 +82,7 @@ Dismissible::active()->firstOrCreate(
 
 </details>
 
-### 3. Check whether it should be shown at the current moment
+### 3. Check whether it should be visible at the current moment
 ```php
 use Rellix\Dismissibles\Facades\Dismissibles;
 
@@ -100,7 +100,9 @@ class SomeController {
         $showPopup = !$user->has_completed_profile && Dismissibles::shouldBeVisible('Complete your profile notification', $user);
         $showPopup = !$user->has_orders && Dismissibles::shouldBeVisible('50% Off First Purchase Popup', $user);
         
-        // You can also get all Dismissibles that should be visible
+        ...
+        
+        // You can also get all Dismissibles that should be visible. Useful for performance reasons.
         $dismissibles = Dismissibles::getAllFor($user);
         
         ...
