@@ -1,7 +1,6 @@
 {
     "name": "rellix/dismissibles-for-laravel",
     "description": "A Laravel package for easily handling dismissible, recurring objects like popups/notifications/modals on the server side.",
-    "version": "4.1.2",
     "type": "library",
     "license": "MIT",
     "keywords": [
