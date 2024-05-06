@@ -6,12 +6,12 @@ A Laravel package for easily managing the visibility of your recurring, dismissi
 
 ## 📕 Table of Contents
 
-- [✅ What problem does this solve?](#--what-problem-does-this-solve-)
-- [📦 Installation](#---installation)
-- [❓ How to use](#--how-to-use)
-- [❗ Good to know](#--good-to-know)
-- [💾 Database tables](#---database-tables)
-- [☕ Buy me a coffee](#--buy-me-a-coffee)
+- [✅ What problem does this solve?](#-what-problem-does-this-solve)
+- [📦 Installation](#-installation)
+- [❓ How to use](#-how-to-use)
+- [❗ Good to know](#-good-to-know)
+- [💾 Database tables](#-database-tables)
+- [☕ Buy me a coffee](#-buy-me-a-coffee)
 
 ## ✅ What problem does this solve?
 Say you have a popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
