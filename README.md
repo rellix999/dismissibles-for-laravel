@@ -1,17 +1,26 @@
-# Dismissibles for Laravel
+# 📣 Dismissibles for Laravel
 
 ![Dismissibles for Laravel](./images/dismissibles-for-laravel.jpg)
 
 A Laravel package for easily managing the visibility of your recurring, dismissible objects like popups/notifications/modals on the backend. This package does not include frontend components, so it's compatible with any frontend you can use.
 
-## What problem does this solve?
+## 📕 Table of Contents
+
+- [✅ What problem does this solve?](#--what-problem-does-this-solve-)
+- [📦 Installation](#---installation)
+- [❓ How to use](#--how-to-use)
+- [❗ Good to know](#--good-to-know)
+- [💾 Database tables](#---database-tables)
+- [☕ Buy me a coffee](#--buy-me-a-coffee)
+
+## ✅ What problem does this solve?
 Say you have a popup you want to show to every user, daily for a week. Users can dismiss it and it should not show up again for the rest of the day until the next day.
 
 This packages handles the complex logic regarding whether the (dismissible) popup should be visible to the current user at the current moment. It basically handles the visibility of your dismissible. It's highly customizable, making it very flexible for many scenario's.
 
 Because it's serverside we can easily get statistics like who dismissed what, when and where.
 
-## Installation
+## 📦 Installation
 1. Require the package in your Laravel application
 ```shell
 composer require rellix/dismissibles-for-laravel
@@ -22,7 +31,7 @@ composer require rellix/dismissibles-for-laravel
 php artisan migrate
 ```
 
-## How to use
+## ❓ How to use
 
 ### 1. Add the interface and trait to any model
 ```php
@@ -139,12 +148,12 @@ class SomeController {
 }
 ```
 
-### Notes
+## ❗ Good to know
 - Need extra data regarding the dismissal? All methods above allow you to pass an `$extraData` array as last parameter which will be written to the `dismissals` table as json.
 - You can use the `Dismissible` and `Dismissal` Eloquent models as usual.
 - Not all methods are listed above. Check the facade and models for more useful methods/scopes and feel free to request more.
 
-## Database tables
+## 💾 Database tables
 The database structure allows you to easily track activity regarding dismissibles. Due to the `extra_data` column it's also very flexible!
 
 ### dismissibles (popups, notifications, modals)
@@ -158,5 +167,5 @@ The database structure allows you to easily track activity regarding dismissible
 |----|----------------|-----------------|--------------|---------------------|------------------------------|---------------------|---------------------|
 | 15 | 3              | App\Models\User | 328          | 2024-04-29 00:00:00 | "{\"route\":\"home.index\"}" | 2024-04-28 17:35:54 | 2024-04-28 17:35:54 |
 
-## Buy me a coffee
+## ☕ Buy me a coffee
 If you like this package, consider [buying me a coffee](https://www.paypal.com/donate/?business=E6QBKXWLXMD92&no_recurring=1&item_name=Buy+me+a+coffee&currency_code=EUR) :-).
