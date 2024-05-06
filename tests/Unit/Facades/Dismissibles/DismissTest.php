@@ -66,11 +66,13 @@ class DismissTest extends BaseTestCase
     }
 
     #[Test]
-    public function the_dismiss_object_has_the_correct_dismissible()
+    public function the_dismiss_object_has_the_correct_dismissible_no_more_no_less()
     {
         $actualValue = Dismissibles::dismiss($this->dismissible->name, $this->dismisser);
 
-        $this->assertTrue($actualValue->dismissible->is($this->dismissible));
+        $dismissibleIds = $actualValue->dismissibles->pluck('id')->toArray();
+
+        $this->assertEquals([$this->dismissible->id], $dismissibleIds);
     }
 
     #[Test]

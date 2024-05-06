@@ -6,16 +6,29 @@ namespace Rellix\Dismissibles\Concerns;
 
 use DateTimeInterface;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Models\Dismissal;
 use Rellix\Dismissibles\Models\Dismissible;
 
 class Dismiss
 {
-    public function __construct(
+    /** @param Collection<int, Dismissible> $dismissibles */
+    private function __construct(
         public readonly Dismisser $dismisser,
-        public readonly Dismissible $dismissible
+        public readonly Collection $dismissibles
     ) {
+    }
+
+    public static function single(Dismisser $dismisser, Dismissible $dismissible): self
+    {
+        return new self($dismisser, new Collection([$dismissible]));
+    }
+
+    /** @param Collection<int, Dismissible> $dismissibles */
+    public static function multiple(Dismisser $dismisser, Collection $dismissibles): self
+    {
+        return new self($dismisser, $dismissibles);
     }
 
     public function untilTomorrow(?array $extraData = null): void
@@ -100,14 +113,16 @@ class Dismiss
 
     private function dismiss(?DateTimeInterface $until = null, ?array $extraData = null): void
     {
-        $dismissal = new Dismissal([
-            'dismissed_until' => $until,
-            'extra_data'      => $extraData ? json_encode($extraData) : null,
-        ]);
+        foreach ($this->dismissibles as $dismissible) {
+            $dismissal = new Dismissal([
+                'dismissed_until' => $until,
+                'extra_data'      => $extraData ? json_encode($extraData) : null,
+            ]);
 
-        $dismissal->dismisser()->associate($this->dismisser);
-        $dismissal->dismissible()->associate($this->dismissible);
+            $dismissal->dismisser()->associate($this->dismisser);
+            $dismissal->dismissible()->associate($dismissible);
 
-        $dismissal->save();
+            $dismissal->save();
+        }
     }
 }

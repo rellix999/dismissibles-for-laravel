@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rellix\Dismissibles\Facades;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Contracts\Dismisser;
@@ -59,7 +59,7 @@ class Dismissibles extends Facade
             return null;
         }
 
-        return new Dismiss($dismisser, $dismissible);
+        return Dismiss::single($dismisser, $dismissible);
     }
 
     /**

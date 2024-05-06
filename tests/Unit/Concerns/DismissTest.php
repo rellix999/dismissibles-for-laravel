@@ -29,8 +29,7 @@ class DismissTest extends BaseTestCase
 
         $this->dismissible = Dismissible::factory()->create();
         $this->dismisser = TestDismisserTypeOne::factory()->create();
-
-        $this->dismiss = new Dismiss($this->dismisser, $this->dismissible);
+        $this->dismiss = Dismiss::single($this->dismisser, $this->dismissible);
     }
 
     #[Test]
@@ -38,7 +37,7 @@ class DismissTest extends BaseTestCase
     {
         $dismissible = Dismissible::factory()->create();
         $dismisser = TestDismisserTypeOne::factory()->create();
-        $dismiss = new Dismiss($dismisser, $dismissible);
+        $dismiss = Dismiss::single($dismisser, $dismissible);
 
         $dismiss->untilTomorrow();
 
@@ -57,7 +56,7 @@ class DismissTest extends BaseTestCase
     {
         $dismissible = Dismissible::factory()->create();
         $dismisser = TestDismisserTypeTwo::factory()->create();
-        $dismiss = new Dismiss($dismisser, $dismissible);
+        $dismiss = Dismiss::single($dismisser, $dismissible);
 
         $dismiss->untilTomorrow();
 
