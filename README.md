@@ -100,6 +100,10 @@ $showPopup = Dismissibles::shouldBeVisible('Happy New Year 2025 Popup', $user);
 $showPopup = Dismissibles::shouldBeVisible('Newsletter signup modal', $user) && !$user->is_subscribed;
 $showPopup = Dismissibles::shouldBeVisible('Complete your profile notification', $user) && !$user->has_completed_profile;
 $showPopup = Dismissibles::shouldBeVisible('50% Off First Purchase Popup', $user) && !$user->has_orders;
+
+// You can also get all Dismissibles in one query (performance) and use the model methods.
+$dismissibles = Dismissibles::getAllFor($user);
+
 ```
 
 <details>
@@ -112,9 +116,6 @@ use Rellix\Dismissibles\Facades\Dismissibles;
 $popup = Dismissibles::get('Test Popup');
 
 $showPopup = $popup->shouldBeVisibleTo($user);
-
-// You can also get all Dismissibles that should be visible. Useful for performance reasons.
-$dismissibles = Dismissibles::getAllFor($user);
 ```
 
 </details>
