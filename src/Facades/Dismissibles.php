@@ -32,11 +32,7 @@ class Dismissibles extends Facade
      */
     public static function getAllFor(Dismisser $dismisser): Collection
     {
-        return Dismissible::query()
-            ->active()
-            ->notDismissedBy($dismisser)
-            ->orderBy('active_from', 'asc')
-            ->get();
+        return Dismissible::visibleTo($dismisser)->orderBy('active_from', 'asc')->get();
     }
 
     /**
@@ -45,8 +41,11 @@ class Dismissibles extends Facade
     public static function shouldBeVisible(string $name, Dismisser $dismisser): bool
     {
         $dismissible = self::get($name);
+        if (!$dismissible) {
+            return false;
+        }
 
-        return $dismissible && !$dismissible->isDismissedBy($dismisser);
+        return $dismissible->shouldBeVisibleTo($dismisser);
     }
 
     /**
@@ -59,7 +58,7 @@ class Dismissibles extends Facade
             return null;
         }
 
-        return Dismiss::single($dismisser, $dismissible);
+        return $dismissible->dismissFor($dismisser);
     }
 
     /**

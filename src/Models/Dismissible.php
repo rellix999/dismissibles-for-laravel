@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Carbon;
+use Rellix\Dismissibles\Concerns\Dismiss;
 use Rellix\Dismissibles\Contracts\Dismisser;
 use Rellix\Dismissibles\Database\Factories\DismissibleFactory;
 
@@ -48,6 +49,16 @@ class Dismissible extends Model
         return CarbonPeriod::create($this->active_from, $this->active_until);
     }
 
+    public function shouldBeVisibleTo(Dismisser $dismisser): bool
+    {
+        return !$this->isDismissedBy($dismisser);
+    }
+
+    public function dismissFor(Dismisser $dismisser): Dismiss
+    {
+        return Dismiss::single($dismisser, $this);
+    }
+
     public function isDismissedBy(Dismisser $dismisser, ?Carbon $moment = null): bool
     {
         if (!$moment) {
@@ -58,6 +69,11 @@ class Dismissible extends Model
             ->dismissedBy($dismisser)
             ->dismissedAt($moment)
             ->exists();
+    }
+
+    public function scopeVisibleTo(Builder $query, Dismisser $dismisser): void
+    {
+        $query->active()->notDismissedBy($dismisser);
     }
 
     public function scopeActive(Builder $query, ?Carbon $moment = null): void

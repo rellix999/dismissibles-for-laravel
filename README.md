@@ -41,6 +41,7 @@ use Rellix\Dismissibles\Traits\HasDismissibles;
 class User implements Dismisser
 {
     use HasDismissibles;
+    
     ...
 }
 
@@ -50,7 +51,6 @@ class User implements Dismisser
 ```php
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-...
 
 return new class () extends Migration {
     public function up(): void
@@ -63,8 +63,6 @@ return new class () extends Migration {
             'updated_at'   => Date::now(),
         ]);
     }
-    
-    ...
 };
 ```
 
@@ -75,7 +73,7 @@ php artisan migrate
 
 <details>
 
-<summary>Click here to view how you can create/fetch a Dismissible inline using the "active"-scope and "firstOrCreate".</summary>
+<summary>💡 You can also create/fetch a Dismissible inline using the "active"-scope and "firstOrCreate".</summary>
 
 ```php
 Dismissible::active()->firstOrCreate(
@@ -91,67 +89,90 @@ Dismissible::active()->firstOrCreate(
 
 </details>
 
-### 3. Check whether it should be visible at the current moment
+### 3. Check if it should be visible at the current moment
 ```php
 use Rellix\Dismissibles\Facades\Dismissibles;
 
-class SomeController {
-    public function index()
-    {
-        ...
-    
-        // It's recommended to centralize dismissible names in an enum (or config)
-        $showPopup = Dismissibles::shouldBeVisible('Test Popup', $user);
-        
-        // Here are some more examples, including ones with additional conditionals:
-        $showPopup = Dismissibles::shouldBeVisible('Happy New Year 2025 Popup', $user);
-        $showPopup = !$user->is_subscribed && Dismissibles::shouldBeVisible('Newsletter signup modal', $user);
-        $showPopup = !$user->has_completed_profile && Dismissibles::shouldBeVisible('Complete your profile notification', $user);
-        $showPopup = !$user->has_orders && Dismissibles::shouldBeVisible('50% Off First Purchase Popup', $user);
-        
-        ...
-        
-        // You can also get all Dismissibles that should be visible. Useful for performance reasons.
-        $dismissibles = Dismissibles::getAllFor($user);
-        
-        ...
-    }
-}
+$showPopup = Dismissibles::shouldBeVisible('Test Popup', $user);
+
+// Here are some more examples, including ones with additional conditionals:
+$showPopup = Dismissibles::shouldBeVisible('Happy New Year 2025 Popup', $user);
+$showPopup = Dismissibles::shouldBeVisible('Newsletter signup modal', $user) && !$user->is_subscribed;
+$showPopup = Dismissibles::shouldBeVisible('Complete your profile notification', $user) && !$user->has_completed_profile;
+$showPopup = Dismissibles::shouldBeVisible('50% Off First Purchase Popup', $user) && !$user->has_orders;
 ```
+
+<details>
+
+<summary>💡 You can also use the individual models.</summary>
+
+```php
+use Rellix\Dismissibles\Facades\Dismissibles;
+
+$popup = Dismissibles::get('Test Popup');
+
+$showPopup = $popup->shouldBeVisibleTo($user);
+
+// You can also get all Dismissibles that should be visible. Useful for performance reasons.
+$dismissibles = Dismissibles::getAllFor($user);
+```
+
+</details>
 
 ### 4. Dismiss it for a specified period
 ```php
 use Rellix\Dismissibles\Facades\Dismissibles;
 
-class SomeController {
-    public function dismiss()
-    {
-        ...
-        
-        Dismissibles::dismiss('Test Popup', $user)->untilNextWeek();
-        
-        // Here's an overview of all the ways you can dismiss:
-        Dismissibles::dismiss('Test Popup', $user)
-            ->untilTomorrow();
-            ->untilNextWeek();
-            ->untilNextMonth();
-            ->untilNextQuarter();
-            ->untilNextYear();
-            ->until($dateTime);
-            ->forHours($numberOfHours);
-            ->forDays($numberOfDays);
-            ->forWeeks($numberOfWeeks);
-            ->forMonths($numberOfMonths);
-            ->forYears($numberOfYears);
-            ->forever();
-    }
-}
+Dismissibles::dismiss('Test Popup', $user)->untilNextWeek();
+
+// Here's an overview of all the ways you can dismiss:
+Dismissibles::dismiss('Test Popup', $user)
+    ->untilTomorrow();
+    ->untilNextWeek();
+    ->untilNextMonth();
+    ->untilNextQuarter();
+    ->untilNextYear();
+    ->until($dateTime);
+    ->forHours($numberOfHours);
+    ->forDays($numberOfDays);
+    ->forWeeks($numberOfWeeks);
+    ->forMonths($numberOfMonths);
+    ->forYears($numberOfYears);
+    ->forever();
 ```
 
+<details>
+
+<summary>💡 You can also use the individual models.</summary>
+
+```php
+use Rellix\Dismissibles\Facades\Dismissibles;
+
+$popup = Dismissibles::get('Test Popup');
+
+// Here's an overview of all the ways you can dismiss:
+$popup->dismissFor($user)
+    ->untilTomorrow();
+    ->untilNextWeek();
+    ->untilNextMonth();
+    ->untilNextQuarter();
+    ->untilNextYear();
+    ->until($dateTime);
+    ->forHours($numberOfHours);
+    ->forDays($numberOfDays);
+    ->forWeeks($numberOfWeeks);
+    ->forMonths($numberOfMonths);
+    ->forYears($numberOfYears);
+    ->forever();
+```
+
+</details>
+
 ## ❗ Good to know
-- Need extra data regarding the dismissal? All methods above allow you to pass an `$extraData` array as last parameter which will be written to the `dismissals` table as json.
-- You can use the `Dismissible` and `Dismissal` Eloquent models as usual.
-- Not all methods are listed above. Check the facade and models for more useful methods/scopes and feel free to request more.
+- The facade contains some oneliners by `$name`, but you can also use the scopes/methods in the `Dismissible` and `Dismissal` Eloquent models as you wish for ultimate flexibility.
+- It's recommended to centralize dismissible names in an enum (or config)
+- Need extra data regarding the dismissal? All dismiss methods allow you to pass an `$extraData` array as last parameter which will be written to the `dismissals` table as json.
+- Feel free to request more methods/scopes
 
 ## 💾 Database tables
 The database structure allows you to easily track activity regarding dismissibles. Due to the `extra_data` column it's also very flexible!
